@@ -15,12 +15,18 @@ citazione\footcite{womak:lean-thinking} \\
 
 % ----------------------------------------------------------------- %
 \section{Contesto e motivazioni}
-La \gls{vlc} è una tecnologia wireless che sfrutta la luce visibile, tipicamente LED, per trasmettere dati. Questo è reso possibile grazie alla modulazione della luce, ovvero a uno sfarfallio impercettibile all'occhio umano. \\
-I principlali vantaggi che rendono questa tecnologia innovativa sono l'efficienza energetica, poiché \gls{vlc} sfrutta fonti di luce già designate all'illuminazione al fine di trasmettere dati, e la sicurezza, in quanto la luce visibile, a differenza delle onde radio, non può penetrare superfici opache. Il tutto garantendo al contempo una comunicazione ad alta velocità.\\
-Tra i principali ambiti di applicazione vi sono: \gls{its}, permette ai veicoli di comunicare tra loro e con le infrastrutture circostanti in modo tale da ridurre il rischio di incidenti e ottimizzare il traffico; Smart Cities and Smart Homes, dove la comunicazione tramite luce visibile può essere sfruttata per la comunicazione sicura e veloce di dispositivi \gls{iot}; Ambienti ospedalieri, nei quali la \gls{vlc} può offrire maggiore sicurezza riducendo i rischi per la salute associati alle onde radio e minimizzando le interferenze con le apparecchiature mediche sensibili.
+La \gls{vlc} è una tecnologia wireless che sfrutta la luce visibile, tipicamente LED, per trasmettere dati. Questo è reso possibile grazie alla modulazione della luce, ovvero a uno sfarfallio impercettibile all'occhio umano.
 
-Introduci la lacuna di mancanza di autenticazione (spiega perché non c'è e perché è importante)
-Spiega come abbiamo pensato di risolvere
+I principali vantaggi che rendono questa tecnologia innovativa sono l'efficienza energetica, poiché \gls{vlc} sfrutta fonti di luce già designate all'illuminazione al fine di trasmettere dati, e la sicurezza, in quanto la luce visibile, a differenza delle onde radio, non può penetrare superfici opache. Il tutto garantendo al contempo una comunicazione ad alta velocità.
+
+Tra i principali ambiti di applicazione vi sono: \gls{its}, permette ai veicoli di comunicare tra loro e con le infrastrutture circostanti in modo tale da ridurre il rischio di incidenti e ottimizzare il traffico; Smart Cities e Smart Homes, dove la comunicazione tramite luce visibile può essere sfruttata per la comunicazione sicura e veloce tra dispositivi \gls{iot}; Ambienti ospedalieri, nei quali la \gls{vlc} può offrire maggiore sicurezza riducendo eventuali rischi per la salute associati alle onde radio e minimizzando le interferenze con le apparecchiature mediche sensibili.
+
+Sebbene la \gls{vlc}, come menzionato in precedenza, presenti di per sé caratteristiche che la rendano sicura, è comunque vulnerabile ad attacchi di tipo spoofing, in cui l'attaccante impersona un device legittimo, replay attacks, in cui l'attaccante intercetta e ritrasmette pacchetti legittimi, e denial of service (DoS), in cui l'attaccante inonda la rete con pacchetti per esaurire le risorse del sistema.
+
+La \gls{vlc} è regolata dallo standard IEEE 802.15.7 che attualmente non definisce protocolli di sicurezza a livello fisico, in quanto assume che il canale di comunicazione sia sicuro e non accessibile a terzi e perciò delega la sicurezza ai livelli superiori. Tuttavia questa assunzione non è valida in tutti gli ambiti di applicazione, come ad esempio in ambienti aperti o in scenari di \gls{its}, dove i dispositivi possono essere facilmente accessibili da parte di attaccanti esterni.
+In questi scenari, la sicurezza a livello fisico è decisamente vantaggiosa, in quanto permette al sistema di rilevare e scartare pacchetti sospetti prima che vengano elaborati dai livelli superiori, riducendo il consumo di risorse computazionali ed energetiche.
+
+Perciò questo progetto si propone di sviluppare e integrare nel framework \cite{site:openvlc}, un modulo di autenticazione a livello fisico che permetta di prevenire alcuni tra i possibili rischi citati in precedenza, come spoofing, replay e DoS attacks, scartando pacchetti illeciti il prima possibile nella comunicazione e mantenendo al contempo le prestazioni del sistema.
 
 % ----------------------------------------------------------------- %
 \section{Obiettivi della tesi}
