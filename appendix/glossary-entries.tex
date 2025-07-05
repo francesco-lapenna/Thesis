@@ -25,6 +25,15 @@
 \newacronym[description={\glslink{ieeeg}{Institute of Electrical and Electronics Engineers}}]
     {ieee}{IEEE}{Institute of Electrical and Electronics Engineers}
 
+\newacronym[description={\glslink{osig}{Open Systems Interconnection Model}}]
+    {osi}{OSI}{Open Systems Interconnection Model}
+
+\newacronym[description={\glslink{phyg}{Physical Layer}}]
+    {phy}{PHY}{Physical Layer}
+
+\newacronym[description={\glslink{macg}{Medium Access Control Layer}}]
+    {mac}{MAC}{Medium Access Control Layer}
+
 % ----------------------------------------------------------------- %
 % Glossary entries
 % ----------------------------------------------------------------- %
@@ -80,11 +89,27 @@
 \newglossaryentry{ieeeg} {
     name=\glslink{ieee}{IEEE},
     text=Institute of Electrical and Electronics Engineers,
-    sort=api,
+    sort=ieee,
     description={L'\emph{Institute of Electrical and Electronics Engineers IEEE} è un'associazione internazionale di scienziati professionisti con l'obiettivo della promozione delle scienze tecnologiche}
 }
 
+\newglossaryentry{osig} {
+    name=\glslink{osi}{OSI},
+    text=Open Systems Interconnection Model,
+    sort=osi,
+    description={L'\emph{Open Systems Interconnection Model} (ing. Modello OSI), sviluppato dalla International Organization for Standardization (ISO), è lo standard architetturale di riferimento per le reti di calcolatori}
+}
 
-% TODO Termini da inserire
-%  - OpenVLC?
-%  - LED?
+\newglossaryentry{phyg} {
+    name=\glslink{phy}{PHY},
+    text=Physical Layer,
+    sort=phy,
+    description={Il'\emph{Physical Layer} (ing. Livello fisico), è il primo livello del modello OSI. Si occupa della trasmissione e ricezione dei dati grezzi su un canale di comunicazione fisico}
+}
+
+\newglossaryentry{macg} {
+    name=\glslink{mac}{MAC},
+    text=Medium Access Control Layer,
+    sort=mac,
+    description={Il'\emph{Medium Access Control Layer}, è il livello che controlla l'hardware responsabile dell'interazione con il mezzo di trasmissione. Insieme al logical link control layer (LLC) costituisce il data link layer del modello OSI}
+}

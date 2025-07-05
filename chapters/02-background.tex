@@ -31,11 +31,17 @@ Tuttavia, non definisce protocolli di sicurezza a livello fisico, in quanto assu
 
 % ----------------------------------------------------------------- %
 \section{Modello OSI}
-% TODO
-https://en.wikipedia.org/wiki/OSI_model#Layer_2:_Data_link_layer
+
+L'\gls{osi}\glsfirstoccur è lo standard di riferimento per le reti di calcolatori. Sviluppato dalla International Organization for Standardization (ISO), definisce un'architettura sviluppata su sette livelli: Physical, Data Link, Network, Transport, Session, Presentation, ed Application.\\
+I livelli più inerenti a quanto trattato in questa tesi sono i primi due: \gls{phy}\glsfirstoccur e \gls{mac}\glsfirstoccur il quale è un sottolivello del livello Data Link.
+
+Il \gls{phy}, è il primo livello del modello OSI. Si occupa della conversione di dati in segnali elettrici, radio o ottici e della trasmissione e ricezione di tali dati grezzi su un canale di comunicazione fisico.
+
+il \gls{mac}, è il livello che controlla l'hardware responsabile dell'interazione con il mezzo di trasmissione. Il livello \gls{mac} è responsabile della gestione dell'accesso al mezzo di trasmissione, della sincronizzazione dei dispositivi e della gestione degli errori. Insieme al logical link control layer (LLC) costituisce il data link layer del modello OSI.
 
 % ----------------------------------------------------------------- %
 \section{OpenVLC e BeagleBone}
+%  TODO
 
 % ----------------------------------------------------------------- %
 \section{Autenticazione e crittografia}
