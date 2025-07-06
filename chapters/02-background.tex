@@ -6,7 +6,7 @@
 % ----------------------------------------------------------------- %
 \section{Visible Light Communication}
 \subsection{Introduzione}
-Nelle telecomunicazioni, la \gls{vlc} prevede l'uso della luce visibile (cioè la luce avente frequenza di 400-800 THz e lunghezza d'onda di 780-375 nm) come mezzo di trasmissione. La \gls{vlc} è un sottoinsieme delle tecnologie di comunicazione ottica wireless.
+Nelle telecomunicazioni, la \gls{vlc}, talvolta indicata anche come "LiFi", prevede l'uso della luce visibile (cioè la luce avente frequenza di 400-800 THz e lunghezza d'onda di 780-375 nm) come mezzo di trasmissione. La \gls{vlc} è un sottoinsieme delle tecnologie di comunicazione ottica wireless.
 
 Questa tecnologia usa comuni lampade flourescenti e LED per trasmettere segnali da 10 kbit/s fino a 500 Mbit/s su corte distanze.
 
@@ -41,10 +41,17 @@ il \gls{mac}, è il livello che controlla l'hardware responsabile dell'interazio
 
 % ----------------------------------------------------------------- %
 \section{OpenVLC e BeagleBone}
-%  TODO
+OpenVLC\footcite{site:openvlc} è una piattaforma open source per la comunicazione ottica wireless, sviluppata dal Pervasive Wireless Systems group del Dr. Giustiniano all'IMDEA Networks Institute (Madrid, Spagna).
+OpenVLC è progettata per essere flessibile e low-cost, permettendo, nell'ultima versione, la trasmissione di dati ad una velocità di 400 kb/s e ad una distanza di quasi 20 metri.
+
+OpenVLC è progetatto per funzionare su BeagleBone\footcite{site:beaglebone}Black, una piattaforma hardware open source low-cost per sviluppatori, dotata di un processore ARM Cortex-A8 e di una serie di interfacce di comunicazione, tra cui USB, Ethernet e GPIO. BeagleBone è particolarmente adatta per applicazioni embedded e IoT, grazie alla sua flessibilità e alle sue capacità di elaborazione.
 
 % ----------------------------------------------------------------- %
-\section{Autenticazione e crittografia}
+\section{PhyAuth USENIX}
+Un progetto di ricerca recente, analogo a quello discusso in questa tesi, e da cui è stata presa ispirazione, è PhyAuth\footcite{phyauth2023}.\\
+PhyAuth è un framework di autenticazione hop-by-hop dei messaggi a livello fisico; lo scopo è quello di difendere le reti ZigBee da attacchi packet-injection.
 
-% ----------------------------------------------------------------- %
-\section{Phy Auth USENIX}
+L'idea alla base di PhyAuth è quella di inglobare, nei segnali fisici di ogni messaggio trasmesso, una \gls{otp}\glsfirstoccur calcolata sulla base di una chiave segreta device-specifica e una funzione crittografica di hash.\\
+La validità di tale chiave viene verificata dal dispositivo ricevente, il quale, se la verifica non va a buon fine, scarta l'intero pacchetto.
+
+Questo framework permette di rilevare accuratamente pacchetti sospetti con poco impatto sulle prestazioni del sistema, e con poche modifiche al protocollo ZigBee, assicurando inoltre compatibilità con i dispositivi su cui non è installato.
