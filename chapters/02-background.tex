@@ -49,9 +49,9 @@ OpenVLC è progetatto per funzionare su BeagleBone\footcite{site:beaglebone}Blac
 % ----------------------------------------------------------------- %
 \section{PhyAuth USENIX}
 Un progetto di ricerca recente, analogo a quello discusso in questa tesi, e da cui è stata presa ispirazione, è PhyAuth\footcite{phyauth2023}.\\
-PhyAuth è un framework di autenticazione hop-by-hop dei messaggi a livello fisico; lo scopo è quello di difendere le reti ZigBee da attacchi packet-injection.
+PhyAuth è un framework di autenticazione hop-by-hop dei messaggi a livello fisico. Il suo scopo è quello di difendere le reti ZigBee da attacchi packet-injection.
 
-L'idea alla base di PhyAuth è quella di inglobare, nei segnali fisici di ogni messaggio trasmesso, una \gls{otp}\glsfirstoccur calcolata sulla base di una chiave segreta device-specifica e una funzione crittografica di hash.\\
+L'idea alla base di PhyAuth è quella di inglobare, nei segnali fisici di ogni messaggio trasmesso, una \gls{otp}\glsfirstoccur calcolata sulla base di una chiave segreta device-specifica ed una funzione crittografica di hash.\\
 La validità di tale chiave viene verificata dal dispositivo ricevente, il quale, se la verifica non va a buon fine, scarta l'intero pacchetto.
 
-Questo framework permette di rilevare accuratamente pacchetti sospetti con poco impatto sulle prestazioni del sistema, e con poche modifiche al protocollo ZigBee, assicurando inoltre compatibilità con i dispositivi su cui non è installato.
+Questo framework permette di rilevare accuratamente pacchetti sospetti con poco impatto sulle prestazioni del sistema e con poche modifiche al protocollo ZigBee, garantendo inoltre compatibilità con i dispositivi su cui non è installato.
