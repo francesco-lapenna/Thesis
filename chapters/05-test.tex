@@ -92,10 +92,10 @@ Inoltre, c'è da precisare che le schede BeagleBone non dispongono di una capaci
 
 \noindent I test vengono valutati utilizzando le seguenti metriche:
 \begin{itemize}
-    \item Bit Error Rate (BER): rapporto tra il numero di bit ricevuti in errore e il numero totale di bit trasmessi, indicativo dell’affidabilità a livello fisico del canale.
+    \item \gls{ber}\glsfirstoccur: rapporto tra il numero di bit ricevuti in errore e il numero totale di bit trasmessi, indicativo dell’affidabilità a livello fisico del canale.
     \item Percentuale di byte corrotti: percentuale di byte che contengono almeno un bit errato rispetto al totale dei byte trasmessi, utile per valutare la possibilità di correggere errori con Reed-Solomon.
-    \item Packet Reception Rate (PRR): frazione di pacchetti correttamente ricevuti sul numero di pacchetti inviati, misura l’efficacia complessiva del link.
-    \item Packet Loss Rate (PLR): percentuale di pacchetti persi rispetto al totale inviato; è il complementare di PRR.
+    \item \gls{prr}\glsfirstoccur: frazione di pacchetti correttamente ricevuti sul numero di pacchetti inviati, misura l’efficacia complessiva del link.
+    \item \gls{plr}\glsfirstoccur: percentuale di pacchetti persi rispetto al totale inviato; è il complementare di PRR.
     \item Percentuale di payload ricevuto: rapporto tra il numero di byte di payload validi ricevuti e il numero di byte di payload trasmessi, espressa in percentuale, per quantificare l’efficienza utile della trasmissione.
 \end{itemize}
 
@@ -114,9 +114,9 @@ Per prima cosa, è necessario confrontare i test "50 cm bit-0" e "50 cm bit-1", 
 
 Nonostante, a prima vista, la differenza in tutte le metriche sembrerebbe minima, è importante considerare che la numerosità dei campioni è di diversi milioni di bit. Di conseguenza, anche una piccola differenza può essere considerata statisticamente significativa.
 
-Si osserva che le uniche metriche che non presentano una differenza significativa sono il Packet Reception Rate (PRR) e il Packet Loss Rate (PLR). Il che denota, come ci si aspetterebbe date le pari condizioni ambientali in cui sono stati svolti i test, che in entrambi i casi le schede riescono a sincronizzarsi correttamente.
+Si osserva che le uniche metriche che non presentano una differenza significativa sono il \gls{prr} e il \gls{plr}. Il che denota, come ci si aspetterebbe date le pari condizioni ambientali in cui sono stati svolti i test, che in entrambi i casi le schede riescono a sincronizzarsi correttamente.
 
-Tuttavia, si osserva che il Bit Error Rate (BER) è più basso per i bit-0 rispetto ai bit-1, con un valore di 1.10\% per i bit-0 e di 1.25\% per i bit-1. Inoltre, la percentuale di byte corrotti è più alta per i bit-1 (2.56\%) rispetto ai bit-0 (1.93\%). Infine, la percentuale di payload ricevuto è più alta per i bit-0 (99.24\%) rispetto ai bit-1 (95.83\%). Questo indica che i bit-1 tendono a essere corrotti più frequentemente rispetto ai bit-0, il che suggerisce un bias a favore dei bit-0.
+Tuttavia, si osserva che il \gls{ber} è più basso per i bit-0 rispetto ai bit-1, con un valore di 1.10\% per i bit-0 e di 1.25\% per i bit-1. Inoltre, la percentuale di byte corrotti è più alta per i bit-1 (2.56\%) rispetto ai bit-0 (1.93\%). Infine, la percentuale di payload ricevuto è più alta per i bit-0 (99.24\%) rispetto ai bit-1 (95.83\%). Questo indica che i bit-1 tendono a essere corrotti più frequentemente rispetto ai bit-0, il che suggerisce un bias a favore dei bit-0.
 
 La presenza di questo bias comporta che le metriche di errore calcolate per i successivi test, in quanto basati su bit-1, sono da considerarsi sovrastimate. In una normale comunicazione, ci si aspetta un bilanciamento tra i bit-0 e i bit-1, e di conseguenza che le metriche di errore siano comprese tra i valori di errore dei bit-0 e dei bit-1 qui presentati.
 
@@ -127,13 +127,13 @@ La presenza di questo bias comporta che le metriche di errore calcolate per i su
         \hline
         \textbf{Metrica} & \textbf{50 cm bit-0} & \textbf{50 cm bit-1}\\
         \hline
-        Bit Error Rate (BER)            & 1.10\%  & 1.25\% \\
+        Bit Error Ratio (\gls{ber})            & 1.10\%  & 1.25\% \\
         \hline
         \% Byte corrotti                & 2.56\%  & 1.93\% \\
         \hline
-        Packet Reception Rate (PRR)     & 93.80\% & 93.90\% \\
+        Packet Reception Rate (\gls{prr})     & 93.80\% & 93.90\% \\
         \hline
-        Packet Loss Rate (PLR)          & 6.20\%  & 6.10\% \\
+        Packet Loss Rate (\gls{plr})          & 6.20\%  & 6.10\% \\
         \hline
         \% Payload Ricevuto             & 99.24\% & 95.83\% \\
         \hline
@@ -143,42 +143,42 @@ La presenza di questo bias comporta che le metriche di errore calcolate per i su
 \subsubsection{Test in diverse posizioni}
 Testando la comunicazione in diverse posizioni, si è osservato che, come ci si aspetterebbe, all'aumentare della distanza e dell'inclinazione tra le schede, tutte le metriche di errore tendono a peggiorare.
 
-In figura \ref{fig:ber_distanze} si riporta il Bit Error Rate (BER) in funzione della distanza tra le schede. Si osserva una progressiva degradazione della qualità della comunicazione ed un'accelerazione nel tasso di errore a partire dai 100 centimetri.
+In figura \ref{fig:ber_distanze} si riporta il \gls{ber} in funzione della distanza tra le schede. Si osserva una progressiva degradazione della qualità della comunicazione ed un'accelerazione nel tasso di errore a partire dai 100 centimetri.
 
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{test/ber_distanze} 
-    \caption{Test Bit Error Rate (BER) in funzione della distanza}
+    \caption{Test \gls{ber} in funzione della distanza}
     \label{fig:ber_distanze}
 \end{figure}
 
-Analogamente, in figura \ref{fig:ber_inclinazioni} si riporta il Bit Error Rate (BER) in funzione dell'inclinazione tra le schede. Anche in questo caso si osserva una degradazione della comunicaione all'aumentare dell'inclinazione, con un tasso di errore che cresce in maniera esponenziale a partire dai 60°.
+Analogamente, in figura \ref{fig:ber_inclinazioni} si riporta il \gls{ber} in funzione dell'inclinazione tra le schede. Anche in questo caso si osserva una degradazione della comunicaione all'aumentare dell'inclinazione, con un tasso di errore che cresce in maniera esponenziale a partire dai 60°.
 
 È interessante notare che, anche ad un'inclinazione ampia come 60°, il BER è comunque limitato. Il che suggerisce che, contrariamente a quanto si potrebbe pensare, la comunicazione tramite luce visibile non sia strettamente unidirezionale, rendendo possibile l'intercettazione del segnale anche da posizioni angolate.\\
-Tuttavia, bisogna considerare che i test sono stati svolti ad una distanza limitata, e che combinata a distanze maggiori, l'inclinazione ha sicuramente un impatto negativo sulla comunicazione. Inoltre, come dimostrano i test successivi, all'aumentare dell'inclinazione, corrisponde un aumento del packet loss rate (PLR), il che renderebbe difficoltosa un'intercettazione esaustiva del segnale ad alte inclinazioni.
+Tuttavia, bisogna considerare che i test sono stati svolti ad una distanza limitata, e che combinata a distanze maggiori, l'inclinazione ha sicuramente un impatto negativo sulla comunicazione. Inoltre, come dimostrano i test successivi, all'aumentare dell'inclinazione, corrisponde un aumento del \gls{plr}, il che renderebbe difficoltosa un'intercettazione esaustiva del segnale ad alte inclinazioni.
 
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{test/ber_inclinazioni} 
-    \caption{Test Bit Error Rate (BER) in funzione dell'inclinazione}
+    \caption{Test Bit Error Ratio (\gls{ber}) in funzione dell'inclinazione}
     \label{fig:ber_inclinazioni}
 \end{figure}
 
-In figura \ref{fig:prr_distanze} si riporta il Packet Reception Rate (PRR) e la percentuale di payload ricevuto in funzione della distanza tra le schede. Si osserva un graduale peggioramento in entrambe le metriche. Si deduce che, all'aumentare della distanza, aumenta sia la perdita di interi pacchetti, sia la perdita di dati all'interno dei pacchetti stessi. 
+In figura \ref{fig:prr_distanze} si riporta il \gls{prr} e la percentuale di payload ricevuto in funzione della distanza tra le schede. Si osserva un graduale peggioramento in entrambe le metriche. Si deduce che, all'aumentare della distanza, aumenta sia la perdita di interi pacchetti, sia la perdita di dati all'interno dei pacchetti stessi. 
 
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{test/prr_distanze} 
-    \caption{Test Packet Reception Rate (PRR) in funzione della distanza}
+    \caption{Test Packet Reception Rate (\gls{prr}) in funzione della distanza}
     \label{fig:prr_distanze}
 \end{figure}
 
-Analogamente, in figura \ref{fig:prr_inclinazioni} si riporta il Packet Reception Rate (PRR) e la percentuale di payload ricevuto in funzione dell'inclinazione tra le schede. Anche in questo caso si possono fare le medesime considerazioni fatte per i test in funzione della distanza.
+Analogamente, in figura \ref{fig:prr_inclinazioni} si riporta il \gls{prr} e la percentuale di payload ricevuto in funzione dell'inclinazione tra le schede. Anche in questo caso si possono fare le medesime considerazioni fatte per i test in funzione della distanza.
 
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{test/prr_inclinazioni} 
-    \caption{Test Packet Reception Rate (PRR) in funzione dell'inclinazione}
+    \caption{Test Packet Reception Rate (\gls{prr}) in funzione dell'inclinazione}
     \label{fig:prr_inclinazioni}
 \end{figure}
 
@@ -189,7 +189,7 @@ Ogni valore di Reed-Solomon è graficamente rappresentato da una stepped area, i
 Il valore supportato nativamente da OpenVLC è RS(216,200). Gli altri valori sono stati scelti in quanto sono i più diffusi, nonché quelli indicati dallo standard IEEE 802.15.7 per questo tipo di comunicazione\\
 Naturalmente, ad una maggiore capacità di correzione corrisponderebbe inevitabilmente un rallentamento nella comunicazione, in quanto si dovrebbero trasmettere più byte di codici di correzione.
 
-Come si può vedere, la percentuale di byte corrotti rispecchia il bit error rate e, per distanze fino a 100 centimetri, rientra nelle capacità di correzione di RS(216,200). Questo significa che, come si può osservare empiricamente, a quelle distanze c'è una perdita di informazione molto bassa o addirittura nulla.
+Come si può vedere, la percentuale di byte corrotti rispecchia il \gls{ber} e, per distanze fino a 100 centimetri, rientra nelle capacità di correzione di RS(216,200). Questo significa che, come si può osservare empiricamente, a quelle distanze c'è una perdita di informazione molto bassa o addirittura nulla.
 
 \begin{figure}[H] 
     \centering 
