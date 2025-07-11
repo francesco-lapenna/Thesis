@@ -60,8 +60,33 @@ In figura \ref{fig:design_openvlc} si riporta uno schema riassuntivo dell'archit
     \label{fig:design_openvlc}
 \end{figure}
 
-\paragraph{PHY Frame e Modulazioni.}
+\paragraph{PHY Frame.}
 
+Come mostrato in figura \ref{fig:phy_frame_structure}, il \gls{phy} frame, cioè la struttura del pacchetto dati a livello fisico, si suddivide in diversi campi.\\
+Ogni pacchetto inizia con un preambolo, lungo quattro byte, necessario alla sincronizzazione dei device, a cui segue lo \textit{Start of Frame Delimiter} che indica l'inizio del frame.\\
+Successivamente vengono inviati quattro campi da due byte ciascuno: la lunghezza in byte del frame (\textit{Frame Length}), l'indirizzo del device a cui il pacchetto è destinato (\textit{Destination}), l'indirizzo del device da cui proviene (\textit{Source}) e il protocollo di comunicazione (\textit{Protocol}).
+A questo punto sono presenti i dati veri e propri, contenuti nel \textit{Payload}, il quale ha una lunghezza variabile da 0 a 255 byte.
+Infine, nel campo \textit{Error Correction Code}, si hanno 16 byte necessari alla correzione degli errori generati da Reed-Solomon.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=0.9\columnwidth]{openvlc/phy_frame_structure}
+    \caption{Struttura del PHY frame in OpenVLC}
+    \label{fig:phy_frame_structure}
+\end{figure}
+
+\paragraph{Modulazione e Codifica.}
+\noindent Come definito dallo standard \gls{ieee} 802.15.7, OpenVLC utilizza la modulazione \gls{ook}\glsfirstoccur nella trasmissione dei dati. In \gls{vlc}, la modulazione dei dati riguarda il modo in cui le informazioni digitali vengono convertite in un segnale analogico tramite la variazione dell'intensità luminosa. In pratica i dispositivi trasmettono bit mediante uno sfarfallio del LED impercettibile all'occhio umano. Si ricorda infatti che lo scopo primario del LED è l'illuminazione, di conseguenza è necessario che rimanga costantemente acceso e che questo sfarfallio sia impercettibile in modo tale da non essere fastidioso per gli occhi.\\
+In \gls{vlc}, la modulazione \gls{ook}, è la forma più semplice di modulazione ASK (Amplitude Shift Keying), la quale rappresenta i dati digitali come presenza o assenza di un segnale luminoso che vengono interpretate rispettivamente come bit-1 e bit-0. Questa modulazione è facile da implementare ed ha un basso costo computazionale, tuttavia richiede una sincronizzazione molto precisa tra trasmettitore e ricevitore.
+
+Al fianco della modulazione \gls{ook}, viene usata la codifica \textit{Manchester}, una forma di comunicazione dati nella quale ogni punto viene segnalato da una transizione. Ad esempio, la transizione del segnale, in questo caso luminoso, da basso ad alto viene interpretato dall scheda ricevente come bit-1; viceversa da alto a basso viene interpretato come un bit-0.\\
+Nella \gls{vlc} ha il vantaggio di mantenere il bilanciamento DC, riducendo il rischio di \textit{flickering} (sfarfallio) visibile e migliora la sincronizzazione tra trasmettitore e ricevitore.
+In OpenVLC l'unico campo del \gls{phy} frame in cui non viene applicata la codifica Manchester è il preambolo, che di conseguenza viene trasmesso in semplice \gls{ook}.
+
+\paragraph{Correzione degli Errori.}
+In OpenVLC, la correzione degli errori è gestita tramite i codici Reed-Solomon, ovvero codici di correzione degli errori applicati a livello fisico nella \gls{vlc} per migliorare l'affidabilità della comunicazione e compensare gli errori introdotti da disturbi ambientali.\\
+Sia k il numero di byte informativi ed n il numero di byte totali trasmessi, Reed-Solomon RS(n,k) è in grado di correggere fino a (n-k)/2 byte errati.
+
+Nel caso di OpenVLC viene usato RS(216,200), di conseguenza vengono aggiunti 16 byte di correzione degli errori per 200 byte informativi. RS(216,200) non possiede una grandissima capacità di correzione degli errori, ma essendo OpenVLC orientato alla velocità piuttosto che all'affidabilità, riduce sicuramente latenza ed overhead rispetto a varianti di Reed-Solomon più performanti.
 
 
 
