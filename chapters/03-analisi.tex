@@ -94,36 +94,58 @@ I dettagli su come è stato configurato il sistema in questo progetto, sulle pro
 
 % ================================================================= %
 \section{Vulnerabilità}
-% possibili attacchi e Vulnerabilità
+
 % cosa assumi sull'attaccante: posizione buona per intercettare il fascio, rubare i pacchet-
 % ti, rubare le password, modificare pacchetti, distruggere pacchetti a caso o mandare
 % pacchetti a caso
 
-Di seguito vengono elencate le principali vulnerabilità individuate della \gls{vlc}, ed in particolare di OpenVLC, che come menzionato precedentemente non presenta alcun meccanismo di sicurezza, essendo una piattaforma sperimentale ed orientata alla velocità.
+% possibili attacchi e Vulnerabilità
+Di seguito vengono elencate le principali vulnerabilità individuate della \gls{vlc}, ed in particolare di OpenVLC, che come menzionato precedentemente non presenta alcun meccanismo di sicurezza, essendo una piattaforma sperimentale ed orientata alla velocità.\\
+Queste vulnerabilità sono particolarmente rilevanti in contesti in cui la sicurezza della rete è critica, come ambienti industriali, ospedalieri o automotive.
 
 \begin{itemize}
-    % risolvibili da autenticazione
+    % risolvibili da authentication
     \item \textbf{Injection di pacchetti.} In assenza di autenticazione, un dispositivo non autorizzato può trasmettere pacchetti arbitrari sulla rete VLC, simulando il comportamento di un nodo legittimo e causando malfunzionamenti o attacchi di spoofing.
     \item \textbf{Replay di messaggi.} Senza meccanismi di autenticazione e protezione, è possibile catturare e ritrasmettere pacchetti validi, inducendo il ricevitore ad accettare messaggi duplicati o obsoleti.
-    % risolvibile da MIC
+    % risolvibile da integrity (MIC)
     \item \textbf{Man-in-the-Middle (MitM).} Un attaccante può inserirsi tra trasmettitore e ricevitore, modificando i pacchetti in transito o iniettando messaggi malevoli, compromettendo l'integrità e l'autenticità della comunicazione.
-    % risolvibile da confidenzialità
+    % risolvibile da confidentiality
     \item \textbf{Intercettazione del segnale ottico.} Un attaccante posizionato in modo opportuno può intercettare il fascio luminoso trasmesso tra i dispositivi, acquisendo i pacchetti scambiati e potenzialmente informazioni sensibili come password o dati privati. Come si osserverà dai risultati dei test nel capitolo \ref{cap:test}, considerando che la luce visibile non si propaga in maniera totalmente unidirezionale, questo tipo di attacco non è una possibilità remota, nel momento in cui l'attaccante ha accesso all'ambiente in cui avviene la comunicazione.
     % irrisolvibile se l'attaccante ha accesso al luogo della comunicazione, oppure con codici di correzione molto potenti
     \item \textbf{Distruzione o alterazione dei pacchetti.} Un attaccante può disturbare la comunicazione inviando segnali ottici che interferiscono con la trasmissione, causando la perdita o la corruzione dei dati.
 \end{itemize}
 
-\noindent Queste vulnerabilità sono particolarmente rilevanti in contesti in cui la sicurezza della rete è critica, come ambienti industriali, ospedalieri o automotive. L'autenticazione a livello fisico dei messaggi, come proposto nella sezione successiva, permette di mitigare efficacemente tali minacce, garantendo che solo i dispositivi autorizzati possano trasmettere e ricevere pacchetti validi e riducendo il rischio di attacchi di spoofing, MitM e injection.
+\subsection{Principi di crittografia e limitazioni}
+Prima di poter parlare della soluzione proposta è necessario specificare che l'autenticazione è solo uno dei pilastri della sicurezza dell'informazione. Infatti, per garantire la robustezza del sistema da tutti questi possibili attacchi, è indispensabile affiancare all'autenticazione la confidenzialità, l'integrità e la correzione degli errori.
+
+L'autenticazione infatti garantisce l'identità del mittente di un messaggio, ma non impedisce a terzi di leggere il contenuto del messaggio. Questo si può ottenere però dalla confidenzialità, grazie alla quale solo il destinatario è in grado di decifrare e leggere il messaggio.\\
+Allo stesso modo, non garantisce che il messaggio non sia manipolato in modo tale da risultare proveniente dallo stesso mittente, ma con un contenuto diverso dall'originale. Implementare dei meccanismi di integrità garantisce al destinatario che il messaggio non sia stato manipolato in alcun modo.\\
+Parallelamente, la correzione degli errori garantisce una maggio resilienza nel caso in cui l'attaccante voglia solo disturbare la comunicazione.
+
+Nella pratica, la soluzione più comune è la crittografia simmetrica. Secondo questa tecnica di cifratura dei messaggi, prima della comunicazione i due device si scambiano una chiave condivisa attraverso un canale sicuro, e usano questa chiave per cifrare i messaggi. In questo modo la crittografia simmetrica garantisce simultaneamente autenticazione e confidenzialità.
+
+Ovviamente ad un aumento della sicurezza, corrispondono inevitabilmente rallentamenti nella comunicazione, in quanto è necessaria una maggiore elaborazione dei dati. Pertanto, bisogna contestualizzare e comprendere le reali necessità del sistema per bilanciare questo \textit{trade-off}.
 
 % ================================================================= %
 \section{Soluzione proposta}
-% TODO dire che man in the middle e difficile con VL perche' richiede accesso fisico e comunque viene trattato negli sviluppi fututi (MIC)
 
 Per far fronte a tali Vulnerabilità, la soluzione che si propone è l'autenticazione a livello fisico dei messaggi. L'idea di fondo è di fare in modo che il device trasmettitore incorpori nei suoi segnali fisici una \gls{otp} derivata da una \gls{psk}. Il device ricevitore rileva tale \gls{otp}, la estrae dai segnali fisici e la verifica, autenticando, se risulta valida, il device trasmettitore. Se invece non viene rilevata una \gls{otp} valida, il pacchetto viene scartato prima di ulteriori elaborazioni.
 
 La \gls{psk} è una chiave segreta condivisa tra i due dispositivi prima dell'inizio della comunicazione. Può essere condivisa attraverso un canale di comunicazione sicuro, oppure, come nel caso di questo progetto, può essere \textit{"hard-coded"}, cioè codificata direttamente nel codice sorgente dei dispositivi.
 
 
+\paragraph{Vulnerabilità Contrastate dall'Autenticazione.}
 
-% spiega come funziona l'autenticazione a livello fisico.
-% vantaggi della soluzione proposta
+L'autenticazione sviluppata in questo progetto è volta a risolvere un sottoinsieme delle vulnerabilità sopra elencate, in particolare injection di pacchetti e replay dei messaggi.
+
+Nell'injection di pacchetti, l'attaccante si finge un nodo legittimo della rete e mette in circolazione pacchetti aventi un contenuto malevolo o semplicemente volti a congestionarla deteriorando così la qualità della comunicazione e le risorse degli altri dispositivi. Questo tipo di attacco può essere prevenuto dall'autenticazione a livello fisico, in quanto ogni pacchetto che non possiede una \gls{otp} valida, come ad esempio quelli forgiati dall'attaccante (che si suppone non abbia la \gls{psk} necessaria a generare una \gls{otp} valida), viene prontamente scartato, evitando ulteriori elaborazioni che possanno depletare le risorse del device o addirittura eseguire codice malevolo. Anche nel caso in cui l'attaccante abbia il pieno controllo di un nodo legittimo (e di conseguenza anche alla \gls{psk} e alla generazione di \gls{otp} valide), e quindi sia in grado di superare i controlli a livello fisico, il coordinatore della rete, dato che la \gls{otp} è device-specifica, può risalire al nodo corrotto leggendo la \gls{otp} dei pacchetti malevoli e contrassegnarlo come illegittimo.
+
+Nel replay dei messaggi, l'attaccante cattura messaggi legittimi inviati da un nodo della rete e, senza modificarli, li ritrasmette in modo tale da congestionare la rete e depletare le risorse del sistema. Anche questo tipo di attacco può essere prevenuto dall'autenticazione sviluppata, poiché, per come è stato progettato l'algoritmo di generazione della \gls{otp}, ogni \gls{otp} (e di riflesso ogni pacchetto) è valida per un unico utilizzo. Quindi una volta trasmesso un pacchetto replicato, se trasmesso una seconda volta, questo verrà scartato dal device ricevitore in quanto la \gls{otp} in esso contenuta risulterà scaduta.
+
+
+\paragraph{Possibili Contromisure alle altre Vulnerabilità.}
+Una possibile contromisura all'attacco Man-in-the-Middle si può implementare semplicemente aggiungendo un \gls{mic} al \gls{phy} frame. Ovvero un codice generato da una funzione di hash, calcolato sia sulla \gls{otp} che sul payload, che possa essere verificato dal ricevitore, in modo tale da assicurare che il messaggio non abbia ricevuto modifiche non autorizzate durante la trasmissione.
+
+L'intercettazione del segnale ottico si può mitigare attraverso la crittografia dei messaggi, ad esempio criptando il messaggio con la chiave pubblica del device destinatario, in modo tale che sia l'unico in grado di decifrarlo e leggerne il contenuto. Oppure usando una chiave condivisa tra i due device in modo tale da garantire al contempo anche l'autenticazione.
+
+L'ultima vulnerabilità, cioè la distruzione o alterazione dei pacchetti tramite segnali ottici che interferiscono con la comunicazione, è in realtà già mitigata attraverso i codici di correzione degli errori presenti in OpenVLC (Reed-Solomon), tuttavia si potrebbe pensare di implementare delle varianti capaci di correggere un maggior numero di errori, anche se al costo di rallentare la comunicazione.
