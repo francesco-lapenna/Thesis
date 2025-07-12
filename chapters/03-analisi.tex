@@ -99,8 +99,31 @@ I dettagli su come è stato configurato il sistema in questo progetto, sulle pro
 % ti, rubare le password, modificare pacchetti, distruggere pacchetti a caso o mandare
 % pacchetti a caso
 
+Di seguito vengono elencate le principali vulnerabilità individuate della \gls{vlc}, ed in particolare di OpenVLC, che come menzionato precedentemente non presenta alcun meccanismo di sicurezza, essendo una piattaforma sperimentale ed orientata alla velocità.
+
+\begin{itemize}
+    % risolvibili da autenticazione
+    \item \textbf{Injection di pacchetti.} In assenza di autenticazione, un dispositivo non autorizzato può trasmettere pacchetti arbitrari sulla rete VLC, simulando il comportamento di un nodo legittimo e causando malfunzionamenti o attacchi di spoofing.
+    \item \textbf{Replay di messaggi.} Senza meccanismi di autenticazione e protezione, è possibile catturare e ritrasmettere pacchetti validi, inducendo il ricevitore ad accettare messaggi duplicati o obsoleti.
+    % risolvibile da MIC
+    \item \textbf{Man-in-the-Middle (MitM).} Un attaccante può inserirsi tra trasmettitore e ricevitore, modificando i pacchetti in transito o iniettando messaggi malevoli, compromettendo l'integrità e l'autenticità della comunicazione.
+    % risolvibile da confidenzialità
+    \item \textbf{Intercettazione del segnale ottico.} Un attaccante posizionato in modo opportuno può intercettare il fascio luminoso trasmesso tra i dispositivi, acquisendo i pacchetti scambiati e potenzialmente informazioni sensibili come password o dati privati. Come si osserverà dai risultati dei test nel capitolo \ref{cap:test}, considerando che la luce visibile non si propaga in maniera totalmente unidirezionale, questo tipo di attacco non è una possibilità remota, nel momento in cui l'attaccante ha accesso all'ambiente in cui avviene la comunicazione.
+    % irrisolvibile se l'attaccante ha accesso al luogo della comunicazione, oppure con codici di correzione molto potenti
+    \item \textbf{Distruzione o alterazione dei pacchetti.} Un attaccante può disturbare la comunicazione inviando segnali ottici che interferiscono con la trasmissione, causando la perdita o la corruzione dei dati.
+\end{itemize}
+
+\noindent Queste vulnerabilità sono particolarmente rilevanti in contesti in cui la sicurezza della rete è critica, come ambienti industriali, ospedalieri o automotive. L'autenticazione a livello fisico dei messaggi, come proposto nella sezione successiva, permette di mitigare efficacemente tali minacce, garantendo che solo i dispositivi autorizzati possano trasmettere e ricevere pacchetti validi e riducendo il rischio di attacchi di spoofing, MitM e injection.
+
 % ================================================================= %
 \section{Soluzione proposta}
-% vedi phyauth fine cap 1
+% TODO dire che man in the middle e difficile con VL perche' richiede accesso fisico e comunque viene trattato negli sviluppi fututi (MIC)
+
+Per far fronte a tali Vulnerabilità, la soluzione che si propone è l'autenticazione a livello fisico dei messaggi. L'idea di fondo è di fare in modo che il device trasmettitore incorpori nei suoi segnali fisici una \gls{otp} derivata da una \gls{psk}. Il device ricevitore rileva tale \gls{otp}, la estrae dai segnali fisici e la verifica, autenticando, se risulta valida, il device trasmettitore. Se invece non viene rilevata una \gls{otp} valida, il pacchetto viene scartato prima di ulteriori elaborazioni.
+
+La \gls{psk} è una chiave segreta condivisa tra i due dispositivi prima dell'inizio della comunicazione. Può essere condivisa attraverso un canale di comunicazione sicuro, oppure, come nel caso di questo progetto, può essere \textit{"hard-coded"}, cioè codificata direttamente nel codice sorgente dei dispositivi.
+
+
+
 % spiega come funziona l'autenticazione a livello fisico.
 % vantaggi della soluzione proposta

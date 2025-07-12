@@ -52,6 +52,9 @@
 \newacronym[description={\glslink{ookg}{On–off keying}}]
     {ook}{OOK}{On–off keying}
 
+\newacronym[description={\glslink{pskg}{Pre-Shared Key}}]
+    {psk}{PSK}{Pre-Shared Key}
+
 
 % ================================================================= %
 % Glossary entries
@@ -123,49 +126,49 @@
     name=\glslink{phy}{PHY},
     text=Physical Layer,
     sort=phy,
-    description={Il'\emph{Physical Layer} (ing. Livello fisico), è il primo livello del modello OSI. Si occupa della trasmissione e ricezione dei dati grezzi su un canale di comunicazione fisico}
+    description={Il'\emph{Physical Layer PHY} (ing. Livello fisico), è il primo livello del modello OSI. Si occupa della trasmissione e ricezione dei dati grezzi su un canale di comunicazione fisico}
 }
 
 \newglossaryentry{macg} {
     name=\glslink{mac}{MAC},
     text=Medium Access Control Layer,
     sort=mac,
-    description={Il'\emph{Medium Access Control Layer}, è il livello che controlla l'hardware responsabile dell'interazione con il mezzo di trasmissione. Insieme al logical link control layer (LLC) costituisce il data link layer del modello OSI}
+    description={Il'\emph{Medium Access Control Layer MAC}, è il livello che controlla l'hardware responsabile dell'interazione con il mezzo di trasmissione. Insieme al logical link control layer (LLC) costituisce il data link layer del modello OSI}
 }
 
 \newglossaryentry{otpg} {
     name=\glslink{otp}{OTP},
     text=One Time Password,
     sort=otp,
-    description={Una \emph{One Time Password} (ing. password monouso), è una password valida per una singola sessione o transazione, e spesso solo per un breve periodo di tempo} 
+    description={Una \emph{One Time Password OTP} (ing. password monouso), è una password valida per una singola sessione o transazione, e spesso solo per un breve periodo di tempo} 
 }
 
 \newglossaryentry{berg} {
     name=\glslink{ber}{BER},
     text=Bit Error Ratio,
     sort=ber,
-    description={Il \emph{Bit Error Ratio} (ing. tasso di errore sui bit), è il numero di errore sui bit diviso per il numero totale dei bit trasmessi durante un dato intervallo di tempo}
+    description={Il \emph{Bit Error Ratio BER} (ing. tasso di errore sui bit), è il numero di errore sui bit diviso per il numero totale dei bit trasmessi durante un dato intervallo di tempo}
 }
 
 \newglossaryentry{prrg} {
     name=\glslink{prr}{PRR},
     text=Packet Reception Rate,
     sort=prr,
-    description={La \emph{Packet Reception Rate} (ing. tasso di ricezione dei pacchetti), è definita come la percentuale di pacchetti correttamente ricevuti rispetto al totale dei pacchetti trasmessi}
+    description={La \emph{Packet Reception Rate PRR} (ing. tasso di ricezione dei pacchetti), è definita come la percentuale di pacchetti correttamente ricevuti rispetto al totale dei pacchetti trasmessi}
 }
 
 \newglossaryentry{plrg} {
     name=\glslink{plr}{PLR},
     text=Packet Loss Rate,
     sort=plr,
-    description={La \emph{Packet Loss Rate} (ing. tasso di perdita dei pacchetti), è definita come la percentuale di pacchetti trasmessi che non vengono correttamente ricevuti dal destinatario}
+    description={La \emph{Packet Loss Rate PLR} (ing. tasso di perdita dei pacchetti), è definita come la percentuale di pacchetti trasmessi che non vengono correttamente ricevuti dal destinatario}
 }
 
 \newglossaryentry{prug} {
     name=\glslink{pru}{PRU},
     text=Programmable Real-Time Unit,
     sort=pru,
-    description={Le \emph{Programmable Real-time Unit}, sono microcontroller integrati all'interno di alcuni System-on-Chip (SoC), progettati per eseguire compiti a bassa latenza in tempo reale, in parallelo con il processore principale. Ogni PRU è una piccola CPU indipendente, programmabile direttamente, e dotata di accesso diretto alla memoria, a periferiche e a linee di I/O, il che consente di ottenere un controllo preciso sul timing delle operazioni}
+    description={Le \emph{Programmable Real-time Unit PRU}, sono microcontroller integrati all'interno di alcuni System-on-Chip (SoC), progettati per eseguire compiti a bassa latenza in tempo reale, in parallelo con il processore principale. Ogni PRU è una piccola CPU indipendente, programmabile direttamente, e dotata di accesso diretto alla memoria, a periferiche e a linee di I/O, il che consente di ottenere un controllo preciso sul timing delle operazioni}
 }
 
 \newglossaryentry{ookg} {
@@ -173,4 +176,11 @@
     text=On–off keying,
     sort=ook,
     description={\emph{On–off keying OOK} denota la più semplice forma di modulazione ASK (amplitude-shift keying), la quale rappresenta i dati digitali come presenza o assenza di una portante}
+}
+
+\newglossaryentry{pskg} {
+    name=\glslink{psk}{PSK},
+    text=Pre-Shared Key,
+    sort=psk,
+    description={In crittografia, una \emph{Pre-Shared Key PSK} (ing. chiave pre condivisa), è una chiave segreta che è stata condivisa tra due dispositivi prima dell'uso tramite un canale sicuro}
 }
