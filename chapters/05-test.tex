@@ -11,7 +11,7 @@ Sono stati condotti quattro test, ognuno della durata di circa 30 secondi. In tu
 
 In particolare, i comandi utilizzati per i test sono gli stessi riportati nella documentazione ufficiale di OpenVLC: per il trasmettitore "\texttt{sudo iperf -c 192.168.0.2 -u -b 400k -l 800 -p 10001 -t 100}"; mentre per il ricevitore "\texttt{sudo iperf -u -l 800 -s -i3 -B 192.168.0.2 -p 10001}".
 
-\subsection{Descrizione dei test}
+\subsection{Data collection}
 
 In figura \ref{fig:iperf_openvlc_originale}, si riporta il test iperf della documentazione di OpenVLC.
 \begin{figure}[H] 
@@ -99,7 +99,7 @@ Inoltre, c'è da precisare che le schede BeagleBone non dispongono di una capaci
     \item Percentuale di payload ricevuto: rapporto tra il numero di byte di payload validi ricevuti e il numero di byte di payload trasmessi, espressa in percentuale, per quantificare l’efficienza utile della trasmissione.
 \end{itemize}
 
-\subsection{Descrizione dei test}
+\subsection{Data collection}
 Come accennato in precedenza, sono stati condotti nove test, tutti in ambiente luminoso.
 
 L'unico test in cui il payload era formato da byte "00" è il test denominato "50 cm bit-0", in cui le schede sono state posizionate una di fronte all'altra ad una distanza di 50 centimetri. In tutti gli altri il payload era formato da byte "FF".

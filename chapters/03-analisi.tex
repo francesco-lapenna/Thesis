@@ -7,7 +7,7 @@
 \section{Analisi della piattaforma OpenVLC}
 
 \paragraph{Introduzione.}
-OpenVLC\footcite{site:openvlc} è una piattaforma open source per la comunicazione ottica wireless, sviluppata dal Pervasive Wireless Systems group del Dr. Giustiniano all'IMDEA Networks Institute (Madrid, Spagna).
+OpenVLC è una piattaforma open source per la comunicazione ottica wireless, sviluppata dal Pervasive Wireless Systems group del Dr. Giustiniano all'IMDEA Networks Institute (Madrid, Spagna).
 OpenVLC è progettata per consentire agli sviluppatori di sperimentare con la \gls{vlc}, per essere flessibile e low-cost, permettendo, nell'ultima versione, la trasmissione di dati ad una velocità di 400 kb/s e ad una distanza di quasi 20 metri.
 
 \paragraph{Motivazioni.}
@@ -15,7 +15,7 @@ Si è scelto di utlizzare OpenVLC proprio a causa della sua accessibilità e pop
 È infatti importante evidenziare, che durante lo svolgimento del progetto, a causa di problematiche riscontrate nella configurazione delle due schede BeagleBone, si è valutata l'idea di trovare un'alternativa ad OpenVLC. Si è considerato, ad esempio, l'utilizzo di un software diverso o addirittura di un qualche programma che permettesse di simulare una comunicazione tramite luce visibile. Tuttavia a seguito di varie ricerche, si è concluso che OpenVLC fosse l'unica soluzione open source attualmente in circolazione.
 
 \paragraph{Hardware.}
-OpenVLC si appoggia su schede BeagleBone\footcite{site:beaglebone}Black, una piattaforma hardware open source low-cost per sviluppatori, dotata di un processore ARM Cortex-A8 e di una serie di interfacce di comunicazione, tra cui USB, Ethernet e GPIO. BeagleBone è particolarmente adatta per applicazioni embedded e IoT, grazie alla sua flessibilità e alle sue capacità di elaborazione.\\
+OpenVLC si appoggia su schede BeagleBone Black, una piattaforma hardware open source low-cost per sviluppatori, dotata di un processore ARM Cortex-A8 e di una serie di interfacce di comunicazione, tra cui USB, Ethernet e GPIO. BeagleBone è particolarmente adatta per applicazioni embedded e IoT, grazie alla sua flessibilità e alle sue capacità di elaborazione.\\
 La seconda componente hardware fondamentale per il funzionamento di OpenVLC è l'\textit{OpenVLC1.3 cape}, una scheda di espansione progettata per la BeagleBone Black. Questo cape integra i circuiti necessari per la trasmissione e la ricezione di segnali luminosi, includendo un LED per l'emissione e un fotodiodo per la ricezione. Inoltre, il cape dispone di circuiti di amplificazione e filtraggio per garantire una comunicazione affidabile e ridurre il rumore di fondo. L'interfaccia tra la BeagleBone e il cape avviene tramite i pin GPIO, permettendo una gestione diretta dei segnali ottici tramite software.
 
 \paragraph{Driver e Sistema Operativo.}
@@ -56,7 +56,7 @@ In figura \ref{fig:design_openvlc} si riporta uno schema riassuntivo dell'archit
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{openvlc/design_openvlc}
-    \caption{Architettura di OpenVLC}
+    \caption{Architettura di OpenVLC (fonte: documentazione OpenVLC)}
     \label{fig:design_openvlc}
 \end{figure}
 
