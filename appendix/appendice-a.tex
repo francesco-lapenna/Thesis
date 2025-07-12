@@ -1,3 +1,22 @@
 \chapter{Appendice A}
+\label{app:A}
 
-\epigraph{Citazione}{Autore della citazione}
+\intro{In questo capitolo si descrive la configurazione del sistema OpenVLC all'interno di questo progetto, si elencano alcune problematiche riscontrate durante la configurazione e il modo in cui sono state risolte.}\\
+
+% ================================================================= %
+\section{Configurazione dell'ambiente OpenVLC}
+
+\paragraph{Hardware.} Come indicato nella documentazione OpenVLC, l'hardware necessario comprende unicamente una scheda BeagleBone Black ed un \textit{OpenVLC1.3 RevA cape}.
+
+\paragraph{Software.} La versione di OpenVLC che si è scelto di utilizzare è \textit{OpenVLC 1.3}, in particolare \textit{OpenVLC\_VL\_IR}, in quanto è l'ultima rilasciata ed è compatibile con l'hardware a nostra disposizione.
+
+\paragraph{Configurazione.} Per quanto riguarda la configurazione vera e propria, sono state seguite le istruzioni indicate nella repository ufficiale GitHub di Openvlc: \cite{site:openvlc-github}. Tutte le modifiche alla configurazione originale sono tracciate nella repository del progetto: \cite{site:openvlc-pa-github}.
+
+Per prima cosa si è scritta un'immagine ISO di Debian 8 su una scheda micro SD. Questa immagine contiene una versione di Debian apposita per funzionare su schede BeagleBone.\\
+In seguito è necessario installare il sistema operativo sulla scheda BeagleBone. Si è inserita la micro SD nell'apposito slot sulla scheda BeagleBone, e una volta connessa al PC tramite cavo USB e avviata una connessione SSH, si può procedere ad eseguire uno script di installazione.\\
+Installato il sistema operativo e riavviata la scheda, è necessario disabilitare l'HDMI in quanto usa alcuni \gls{pru} necessari ad OpenVLC, aggiornare il sistema ed installare gli headers.\\
+A questo punto si è incorsi in un errore, in quanto Debian 8, non essendo più supportato, ha archiviato alcune repository. Di conseguenza è stato necessario aggiornarle in modo tale che venissero ricercate nell'archivio.\\
+Si deve poi eseguire lo script \textit{load\_test.sh} che compila il driver e permette di cambiare l'indirizzo IP della scheda, è infatti indispensabile che le schede abbiano due indirizzi diversi.\\
+L'ultimo passo è quello di configurare il ruolo della scheda (trasmettitore o ricevitore) selezionando lo script corretto all'interno della cartella 'PRU'. In questo progetto, per il trasmettitore, è stato usato \textit{TX\_VL\_IR\_Dimming\_0/deploy.sh} in modo tale da non usare il LED infrarossi, ma solo la luce visibile.
+
+Gli ultimi due passi della configurazione devono essere eseguiti ad ogni avvio della scheda. Per facilitare l'installazione del sistema operativo ed automatizzare l'inizializzazione delle schede sono stati creati alcuni script che si possono trovare nella repository del progetto al percorso \texttt{OpenVLC-PA/OpenVLC\_VL\_IR/utils/}.

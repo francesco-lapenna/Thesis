@@ -1,7 +1,7 @@
 \chapter{Analisi}
 \label{cap:analisi}
 
-\intro{In questo capitolo si approfondisce in dettaglio il funzionamento del framework OpenVLC, le minacce alla sicurezza a cui è soggetto e le possibili contromisure. Si descrive inoltre la configurazione dell'ambiente nell'ambito del progetto e le problematiche riscontrate.}\\
+\intro{In questo capitolo si approfondisce in dettaglio il funzionamento del framework OpenVLC, le minacce alla sicurezza a cui è soggetto e le possibili contromisure.}\\
 
 % ================================================================= %
 \section{Analisi della piattaforma OpenVLC}
@@ -88,17 +88,8 @@ Sia k il numero di byte informativi ed n il numero di byte totali trasmessi, Ree
 
 Nel caso di OpenVLC viene usato RS(216,200), di conseguenza vengono aggiunti 16 byte di correzione degli errori per 200 byte informativi. RS(216,200) non possiede una grandissima capacità di correzione degli errori, ma essendo OpenVLC orientato alla velocità piuttosto che all'affidabilità, riduce sicuramente latenza ed overhead rispetto a varianti di Reed-Solomon più performanti.
 
-
-
-
-
-
-
-\subsection{Configurazione e problematiche riscontrate}
-% descrivere la versione di OpenVLC usata e come è stato configurato il sistema
-% descrivi anche le problematiche riscontrate durante la configurazione e come le hai risolte
-% di che per com'è scritto il codice ci sono gravi problemi di sincronizzazione dato che la ricezione del preambolo è commentata
-% installazione os e script fatti per automatizzare la configurazione
+\paragraph{Configurazione.}
+I dettagli su come è stato configurato il sistema in questo progetto, sulle problematiche riscontrate e su come sono state risolte, si possono trovare nell'appendice \ref{app:A}.
 
 
 % ================================================================= %
