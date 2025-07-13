@@ -58,6 +58,13 @@
 \newacronym[description={\glslink{micg}{Message Integrity Code}}]
     {mic}{MIC}{Message Integrity Code}
 
+\newacronym[description={\glslink{p2pg}{Point-to-point}}]
+    {p2p}{P2P}{Point-to-point}
+
+\newacronym[description={\glslink{xorg}{Exclusive or}}]
+    {xor}{XOR}{Exclusive or}
+
+
 
 % ================================================================= %
 % Glossary entries
@@ -193,4 +200,25 @@
     text=Message Integrity Code,
     sort=mic,
     description={In crittografia, un \emph{Message Integrity Code MIC} (ing. codice di integrità del messaggio), è un codice, generato da una funzione di hash, usato per autenticare e verificare l'integrità di un messaggio}
+}
+
+\newglossaryentry{p2pg} {
+    name=\glslink{p2p}{P2P},
+    text=Point-to-point,
+    sort=p2p,
+    description={Nelle telecomunicazioni, una connessione \emph{Point-to-point P2P} (ing. punto a punto), si riferisce ad una comunicazione diretta tra due nodi. Si contrappone alla comunicazione point-to-multipoint o broadcast in cui diversi nodi possono ricevere le informazioni trasmesse da un nodo}
+}
+
+\newglossaryentry{xorg} {
+    name=\glslink{xor}{XOR},
+    text=Exclusive or,
+    sort=xor,
+    description={L'\emph{Exclusive or XOR} (ing. o esclusivo), è un operatore logico che produce in uscita VERO (V) se e solo se gli ingressi sono diversi tra di loro. Se gli ingressi sono uguali (V-V oppure F-F) restituisce FALSO (F)}
+}
+
+\newglossaryentry{hmacg} {
+    name=\glslink{hmac}{HMAC},
+    text=Hash-based Message Authentication Code,
+    sort=hmac,
+    description={L'\emph{Hash-based Message Authentication Code HMAC}, è una modalità per l'autenticazione di messaggi (message authentication code) basata su una funzione di hash, utilizzata in diverse applicazioni legate alla sicurezza informatica}
 }

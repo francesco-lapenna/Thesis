@@ -1,12 +1,37 @@
 \chapter{Progettazione ed implementazione}
 \label{cap:progettazione}
 
-\intro{Breve introduzione al capitolo}\\
+\intro{In questo capitolo si descrive il workflow del modulo sviluppato, le scelte di progettazione ed i dettagli di implementazione del modulo di autenticazione sviluppato.}\\
 
 % ================================================================= %
 \section{Progettazione}
-% vedi phyauth fine cap 3 (workflow e design)
-% motivazioni e progettazione
+
+\paragraph{Premessa e Workflow.}
+Essendo una prima versione sperimentale, questo metodo di autenticazione, come del resto OpenVLC, è stato progettato per una comunicazione \gls{p2p}\glsfirstoccur e assume che i due nodi abbiano già stabilito una connessione.
+Il workflow consiste in due passi: il trasmettitore, in fase di invio dei dati, calcola una \gls{otp} e la incorpora in una posizione nota nei segnali fisici del pacchetto; il ricevitore, in fase di ricezione, estrae la \gls{otp} dai segnali fisici del pacchetto e ne verifica la validità.\\
+I pacchetti che non presentano una valida \gls{otp} vengono scartati, altrimenti possono procedere ad ulteriori elaborazioni da parte di OpenVLC.
+
+
+\subsection{Generazione e verifica dell'OTP}
+Una \gls{otp} è un codice di autenticazione temporaneo, specifico per dispositivo in quanto involve una chiave segreta, valido per una sola operazione o comunque per un breve periodo di tempo.
+
+\paragraph{Generazione.}
+\paragraph{Lunghezza.}
+\paragraph{HMAC.}
+parla di \gls{hmac} 
+\paragraph{Time-step T.}
+\paragraph{Chiave Segreta K.}
+\paragraph{Sequence Number SN.}
+\paragraph{Verifica.}
+
+
+\subsection{Codifica e decodifica dell'OTP}
+
+\paragraph{Embedding e Trasmissione.}
+parla dello \gls{xor}
+\paragraph{Estrazione.}
+
+
 
 % ================================================================= %
 \section{Implementazione}
