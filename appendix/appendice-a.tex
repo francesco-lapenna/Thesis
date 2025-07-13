@@ -14,7 +14,7 @@ Il primo ostacolo incontrato ha riguardato il corretto funzionamento del cape, l
 
 Per prima cosa si è scritta un'immagine ISO di Debian 8 su una scheda micro SD. Questa immagine contiene una versione di Debian apposita per funzionare su schede BeagleBone.\\
 In seguito è necessario installare il sistema operativo sulla scheda BeagleBone. Si è inserita la micro SD nell'apposito slot sulla scheda BeagleBone, e una volta connessa al PC tramite cavo USB e avviata una connessione SSH, si può procedere ad eseguire uno script di installazione.\\
-Installato il sistema operativo e riavviata la scheda, è necessario disabilitare l'HDMI in quanto usa alcuni \gls{pru} necessari ad OpenVLC, aggiornare il sistema ed installare gli headers.\\
+Installato il sistema operativo e riavviata la scheda, è necessario disabilitare l'HDMI in quanto usa alcuni \gls{pru}\glsfirstoccur necessari ad OpenVLC, aggiornare il sistema ed installare gli headers.\\
 A questo punto si è incorsi in un errore, in quanto Debian 8, non essendo più supportato, ha archiviato alcune repository. Di conseguenza è stato necessario aggiornarle in modo tale che venissero ricercate nell'archivio.\\
 Si deve poi eseguire lo script \textit{load\_test.sh} che compila il driver e permette di cambiare l'indirizzo IP della scheda, è infatti indispensabile che le schede abbiano due indirizzi diversi.\\
 L'ultimo passo è quello di configurare il ruolo della scheda (trasmettitore o ricevitore) selezionando lo script corretto all'interno della cartella 'PRU'. In questo progetto, per il trasmettitore, è stato usato \textit{TX\_VL\_IR\_Dimming\_0/deploy.sh} in modo tale da non usare il LED infrarossi, ma solo la luce visibile.

@@ -31,7 +31,7 @@ Considerato ciò, si è deciso di utilizzare una \gls{otp} di lunghezza 32 byte,
 La funzione Truncate, com'è intuibile, troncherà l'output della funzione HMAC a tale lunghezza.
 
 \paragraph{HMAC.}
-La funzione \gls{hmac}, è un meccanismo crittografico che consente di verificare l'integrità e l'autenticità di un messaggio. In questo contesto, HMAC viene utilizzato per generare la \gls{otp} combinando la chiave segreta K con i parametri T, SN e src-addr tramite una funzione di hash sicura. Il risultato è un codice che può essere calcolato solo da chi possiede la chiave K e che varia in base ai parametri forniti, garantendo così che ogni \gls{otp} sia unica e valida solo per una specifica trasmissione e intervallo temporale.
+La funzione \gls{hmac}\glsfirstoccur, è un meccanismo crittografico che consente di verificare l'integrità e l'autenticità di un messaggio. In questo contesto, HMAC viene utilizzato per generare la \gls{otp} combinando la chiave segreta K con i parametri T, SN e src-addr tramite una funzione di hash sicura. Il risultato è un codice che può essere calcolato solo da chi possiede la chiave K e che varia in base ai parametri forniti, garantendo così che ogni \gls{otp} sia unica e valida solo per una specifica trasmissione e intervallo temporale.
 
 \paragraph{Time-step T.}
 Il time-step T è un numero intero che rappresenta il numero di intervalli di tempo (\textit{time-step}) di durata X trascorsi tra $T_0$ e l'attuale tempo unix. Viene calcolato tramite la seguente formula:
@@ -62,7 +62,7 @@ Infatti, si supponga che un pacchetto venga trasmesso con un ritardo superiore a
 \subsection{Codifica e decodifica dell'OTP}
 
 \paragraph{Embedding ed Estrazione.}
-Per inglobare la \gls{otp} all'interno dei segnali fisici di ogni pacchetto, si è deciso di usare l'operatore logico \gls{xor}.\\
+Per inglobare la \gls{otp} all'interno dei segnali fisici di ogni pacchetto, si è deciso di usare l'operatore logico \gls{xor}\glsfirstoccur.\\
 La particolarità dello \gls{xor} è che consente di "fondere" l'informazione dell'OTP con i segnali fisici del pacchetto in modo reversibile, grazie alla proprietà di auto-invertibilità dello XOR. Secondo questa proprietà, dato un messaggio \( M \) e una chiave \( K \), se \( C = M \oplus K \), allora risulta sempre valido che \( M = C \oplus K \).
 
 Il trasmettitore, infatti, applica l'operazione di \gls{xor} tra la sequenza di byte dell'OTP ed i quattro byte del \textit{frame header} contenenti gli indirizzi di trasmettitore e ricevitore (figura \ref{fig:phy_frame_structure}, campi Destination e Source), ottenendo una sequenza modificata che viene inserita nel pacchetto. Al ricevitore, la stessa operazione di \gls{xor} tra la sequenza ricevuta e la porzione nota del payload permette di recuperare l'OTP originale.
