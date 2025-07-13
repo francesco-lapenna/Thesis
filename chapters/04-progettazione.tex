@@ -27,7 +27,7 @@ La sicurezza di questo tipo di \gls{otp} risiede proprio nella sua dipendenza da
 
 \paragraph{Lunghezza.}
 Per essere resistente ad attacchi \textit{brute force}, una \gls{otp} deve avere una lunghezza di almeno 31 bit; naturalmente maggiore è la dimensione della \gls{otp} e maggiore è la latenza introdotta nella comunicazione.\\
-Considerato ciò, si è deciso di utilizzare una \gls{otp} di lunghezza 32 byte, in modo tale che fosse abbastanza resistente agli attacchi ma senza introdurre rallentamenti percepibili nella comunicazione.\\
+Considerato ciò, si è deciso di utilizzare una \gls{otp} di lunghezza 32 bit, in modo tale che fosse abbastanza resistente agli attacchi ma senza introdurre rallentamenti percepibili nella comunicazione.\\
 La funzione Truncate, com'è intuibile, troncherà l'output della funzione HMAC a tale lunghezza.
 
 \paragraph{HMAC.}
