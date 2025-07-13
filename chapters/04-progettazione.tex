@@ -16,7 +16,7 @@ I pacchetti che non presentano una valida \gls{otp} vengono scartati, altrimenti
 Una \gls{otp} è un codice di autenticazione temporaneo, specifico per dispositivo in quanto involve una chiave segreta, valido per una sola operazione o comunque per un breve periodo di tempo.
 
 \paragraph{Generazione.}
-La formula utilizzata per la generazione della \gls{otp} è la seguente:
+La formula utilizzata dal trasmettitore per la generazione della \gls{otp} è la seguente:
 \begin{equation}
     \text{POTP}(K, T, SN, \text{src-addr}) = \text{Truncate}\left( \text{HMAC}(K, T, SN, \text{src-addr}) \right)
     \label{eq:potp}
@@ -40,13 +40,19 @@ Il time-step T è un numero intero che rappresenta il numero di intervalli di te
     \label{eq:timestep}
 \end{equation}
 in cui \textit{current Unix time} indica i secondi trascorsi a partire dall'epoch Unix, $T_0$ è un riferimento ad un tempo iniziale arbitrario ed X indica l'intervallo di tempo di validità della \gls{otp}. $T_0$ e X devono avere lo stesso valore in entrambi i dispositivi.
+Nel caso specifico di questo progetto, X è stato impostato a 3, quindi ogni \gls{otp} è valida per un massimo di tre secondi.
 
 \paragraph{Chiave Segreta K.}
-
+Come già anticipato, K è una chiave segreta precondivisa tra trasmettitore e ricevitore. In questo progetto ha lunghezza di 128 bit.
 
 \paragraph{Sequence Number SN.}
+SN è un numero intero che incrementa ad ogni \gls{otp} generata in un determinato periodo di tempo. Trascorso quel periodo di tempo, infatti, viene azzerato nuovamente.\\
+Il SN è un componente fondamentale in quanto è solo grazie ad esso che la \gls{otp} è valida per un solo utilizzo. Infatti il ricevitore, in un determinato intervallo di tempo, salva in memoria il SN più alto ricevuto e non accetta pacchetti con SN minore o uguale ad esso.\\
+Se tale componente non fosse presente, ogni \gls{otp} sarebbe valida per un intero intervallo di tempo, in questo caso tre secondi, e la protezione contro \textit{replay attacks} sarebbe notevolmente inficiata.
+
 \paragraph{Verifica.}
-parla della flessibilità di T ed SN
+
+% parla della flessibilità di T ed SN
 
 
 \subsection{Codifica e decodifica dell'OTP}
