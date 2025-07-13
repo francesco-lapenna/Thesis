@@ -16,13 +16,37 @@ I pacchetti che non presentano una valida \gls{otp} vengono scartati, altrimenti
 Una \gls{otp} è un codice di autenticazione temporaneo, specifico per dispositivo in quanto involve una chiave segreta, valido per una sola operazione o comunque per un breve periodo di tempo.
 
 \paragraph{Generazione.}
+La formula utilizzata per la generazione della \gls{otp} è la seguente:
+\begin{equation}
+    \text{POTP}(K, T, SN, \text{src-addr}) = \text{Truncate}\left( \text{HMAC}(K, T, SN, \text{src-addr}) \right)
+    \label{eq:potp}
+\end{equation}
+in cui K denota la \gls{psk}, cioè la chiave segreta precondivisa tra le due schede; T è un numero intero che rappresenta l'intervallo di tempo nel quale la \gls{otp} è valida; SN è un \textit{sequence number} incrementale; src-addr rappresenta l'indirizzo MAC del dispositivo trasmettitore.
+
+La sicurezza di questo tipo di \gls{otp} risiede proprio nella sua dipendenza da diversi parametri. Infatti richiede ai dispositivi la conoscenza della chiave K, scade una volta concluso il periodo di tempo T, può essere utilizzata un'unica volta a causa del SN ed è strettamente legata al dispositivo grazie al src-addr.
+
 \paragraph{Lunghezza.}
+Per essere resistente ad attacchi \textit{brute force}, una \gls{otp} deve avere una lunghezza di almeno 31 bit; naturalmente maggiore è la dimensione della \gls{otp} e maggiore è la latenza introdotta nella comunicazione.\\
+Considerato ciò, si è deciso di utilizzare una \gls{otp} di lunghezza 32 byte, in modo tale che fosse abbastanza resistente agli attacchi ma senza introdurre rallentamenti percepibili nella comunicazione.\\
+La funzione Truncate, com'è intuibile, troncherà l'output della funzione HMAC a tale lunghezza.
+
 \paragraph{HMAC.}
-parla di \gls{hmac} 
+La funzione \gls{hmac}, è un meccanismo crittografico che consente di verificare l'integrità e l'autenticità di un messaggio. In questo contesto, HMAC viene utilizzato per generare la \gls{otp} combinando la chiave segreta K con i parametri T, SN e src-addr tramite una funzione di hash sicura. Il risultato è un codice che può essere calcolato solo da chi possiede la chiave K e che varia in base ai parametri forniti, garantendo così che ogni \gls{otp} sia unica e valida solo per una specifica trasmissione e intervallo temporale.
+
 \paragraph{Time-step T.}
+Il time-step T è un numero intero che rappresenta il numero di intervalli di tempo (\textit{time-step}) di durata X trascorsi tra $T_0$ e l'attuale tempo unix. Viene calcolato tramite la seguente formula:
+\begin{equation}
+    T = \frac{\text{current Unix time} - T_0}{X}
+    \label{eq:timestep}
+\end{equation}
+in cui \textit{current Unix time} indica i secondi trascorsi a partire dall'epoch Unix, $T_0$ è un riferimento ad un tempo iniziale arbitrario ed X indica l'intervallo di tempo di validità della \gls{otp}. $T_0$ e X devono avere lo stesso valore in entrambi i dispositivi.
+
 \paragraph{Chiave Segreta K.}
+
+
 \paragraph{Sequence Number SN.}
 \paragraph{Verifica.}
+parla della flessibilità di T ed SN
 
 
 \subsection{Codifica e decodifica dell'OTP}
