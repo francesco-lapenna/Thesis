@@ -51,16 +51,25 @@ Il SN è un componente fondamentale in quanto è solo grazie ad esso che la \gls
 Se tale componente non fosse presente, ogni \gls{otp} sarebbe valida per un intero intervallo di tempo, in questo caso tre secondi, e la protezione contro \textit{replay attacks} sarebbe notevolmente inficiata.
 
 \paragraph{Verifica.}
+Il ricevitore, nel processo di verifica della \gls{otp}, genera una \gls{otp} attesa tramite la medesima funzione di generazione utilizzata dal trasmettitore (equazione \ref{eq:potp}) e la confronta con quella ricevuta.\\
+Come parametri per la funzione, vengono usati dei valori attesi, ad esempio, il ricevitore si aspetta che la \gls{otp} ricevuta sia stata generata con il SN successivo a quello dell'ultimo pacchetto ricevuto.
 
-% parla della flessibilità di T ed SN
+In realtà, non viene generata una singola \gls{otp}, bensì un insieme di \gls{otp} da considerare valide, in quanto si è voluto introdurre un certo grado di flessibilità, in modo tale da migliorare la resilienza del sistema ad eventuali ritardi nella comunicazione o perdite di pacchetti.\\
+Siano $T_c$ e $SN_c$ rispettivamente l'intervallo di tempo corrente e il prossimo SN atteso, siano x ed y rispettivamente il grado di flessibilità per T ed il grado di flessibilità per SN; vengono considerate valide tutte le \gls{otp} generate con l'equazione \ref{eq:potp} in cui $T \in [T_c - x, T_c]$ e $SN \in [SN_c, SN_c + y]$.\\
+Infatti, si supponga che un pacchetto venga trasmesso con un ritardo superiore al time step; quel pacchetto, sebbene legittimo, verrebbe considerato dal ricevitore come illegittimo. Allo stesso modo, supponendo che vengano persi alcuni pacchetti, se non fosse stata introdotta questa flessibilità, tutti i successivi (fino al successivo time step) verrebbero considerati erroneamente illegittimi.
 
 
 \subsection{Codifica e decodifica dell'OTP}
 
-\paragraph{Embedding e Trasmissione.}
-parla dello \gls{xor}
-\paragraph{Estrazione.}
+\paragraph{Embedding ed Estrazione.}
+Per inglobare la \gls{otp} all'interno dei segnali fisici di ogni pacchetto, si è deciso di usare l'operatore logico \gls{xor}.\\
+La particolarità dello \gls{xor} è che consente di "fondere" l'informazione dell'OTP con i segnali fisici del pacchetto in modo reversibile, grazie alla proprietà di auto-invertibilità dello XOR. Secondo questa proprietà, dato un messaggio \( M \) e una chiave \( K \), se \( C = M \oplus K \), allora risulta sempre valido che \( M = C \oplus K \).
 
+Il trasmettitore, infatti, applica l'operazione di \gls{xor} tra la sequenza di byte dell'OTP ed i quattro byte del \textit{frame header} contenenti gli indirizzi di trasmettitore e ricevitore (figura \ref{fig:phy_frame_structure}, campi Destination e Source), ottenendo una sequenza modificata che viene inserita nel pacchetto. Al ricevitore, la stessa operazione di \gls{xor} tra la sequenza ricevuta e la porzione nota del payload permette di recuperare l'OTP originale.
+
+Questa tecnica garantisce che l'OTP sia trasmessa in modo non direttamente leggibile, aumentando la sicurezza contro attacchi di intercettazione. Inoltre, l'operazione di \gls{xor} è computazionalmente leggera e non introduce latenza significativa nella comunicazione.
+
+La posizione e la lunghezza della porzione di frame utilizzata per l'operazione di \gls{xor} sono concordate tra trasmettitore e ricevitore, inoltre in una comunicazione \gls{p2p} gli indirizzi Destinatione e Source sono noti ad entrambi. Ciò permette una corretta estrazione e verifica dell'OTP.
 
 
 % ================================================================= %
