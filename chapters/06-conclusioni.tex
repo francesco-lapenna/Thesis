@@ -3,10 +3,41 @@
 
 % ================================================================= %
 \section{Raggiungimento degli obiettivi}
+L'obiettivo primario di questo progetto era progettare e implementare un modulo di autenticazione a livello fisico per la piattaforma OpenVLC, in grado di prevenire attacchi di replay e packet injection nei primi stadi della comunicazione. Come definito nel piano di lavoro, gli obiettivi obbligatori erano:
+\begin{itemize}
+  \item[O01] Configurare le schede BeagleBone Black per consentire la comunicazione tramite luce visibile;
+  \item[O02] Studiare lo standard \gls{ieee} 802.15.7 per comprendere i requisiti tecnici e le specifiche;
+  \item[O03] Progettare e implementare il modulo di autenticazione sulla piattaforma OpenVLC;
+  \item[O04] Testare e validare il modulo sviluppato in ambiente buio;
+  \item[O05] Documentare dettagliatamente il lavoro svolto e i risultati ottenuti.
+\end{itemize}
+Tutti questi punti sono stati soddisfatti: le schede sono state configurate con Debian 8 e driver OpenVLC\_VL\_IR 1.3, si è approfondito lo standard \gls{ieee} 802.15.7, e il modulo \texttt{PhyAuthP2P} è stato integrato nel driver OpenVLC e testato in diverse condizioni, confermando che l'introduzione del meccanismo di autenticazione permette di scartare pacchetti illegittimi non degradando le prestazioni.
 
-\section{Sviluppi futuri}
-% message integrity code per evitare man in the middle che modifica cose (se modifica cose il mic è sminchiato e il paccchetto viene scartato)
+L'obiettivo desiderabile \textbf{D01} (Testare e validare il modulo sviluppato in ambiente con luce ambiente) è stato esplorato: i test non hanno evidenziato alcuna differenza rispetto al framework OpenVLC originale.
+
+L'obbiettivo facoltativo \textbf{F02} (Testare il sistema in condizioni più rumorose (con disturbo indotto)) è stato soddisfatto.
+L'obbiettivo facoltativo \textbf{F01} (Effettuare il fine tuning delle resistenze per ottimizzare la ricezione del segnale) non è stato esplorato.
 
 \section{Conoscenze acquisite}
+Nel corso di questo progetto ho avuto l'opportunità di approfondire competenze in:
+\begin{itemize}
+  \item Visible Light Communication e piattaforma OpenVLC, incluso l'uso di hardware e PRU su BeagleBone Black;
+  \item Standard IEEE\,802.15.7, con focus su modulazione e codifica dei segnali;
+  \item Sicurezza a livello fisico e crittografia, mediante studio di framework esistenti e l'implementazione di un meccanismo di generazione di \gls{otp};
+  \item Progettazione software in C e Linux kernel-space;
+  \item Metodologie di test e validazione, calcolo di metriche di valutazione del sistema \gls{vlc} e analisi di tali metriche.
+\end{itemize}
+Queste competenze rappresentano sia un ampliamento delle conoscenze teoriche sia uno sviluppo di abilità pratiche.
 
-\section{Valutazione personale}
+\section{Valutazione personale e sviluppi futuri}
+L'esperienza di stage e tesi è stata altamente formativa. Le principali difficoltà incontrate sono state la configurazione iniziale dei cape OpenVLC su Debian “jessie” e la gestione della sincronia temporale per l'OTP, superate mediante documentazione dettagliata e test incrementali.
+
+La soddisfazione maggiore deriva dall'aver realizzato un proof-of-concept funzionante, con impatto minimo sulle prestazioni e potenziale estendibilità. Tra i possibili prolungamenti di questo lavoro si segnalano:
+\begin{itemize}
+  \item Integrazione di un \textbf{Message Integrity Code} per contrastare attacchi \gls{mitm};
+  \item Valutazione di codici di correzione più potenti per ambienti ad alto rumore luminoso;
+  \item Cifratura dei dati al fine di introdurre confidenzialità;
+  \item Estensione del modulo a comunicazioni \textbf{multipoint}.
+\end{itemize}
+
+\noindent In conclusione, il progetto ha raggiunto i risultati prefissati, fornendo un valido punto di partenza per ulteriori ricerche sulla sicurezza nella VLC.

@@ -105,12 +105,12 @@ Queste vulnerabilità sono particolarmente rilevanti in contesti in cui la sicur
 
 \begin{itemize}
     % risolvibili da authentication
-    \item \textbf{Injection di pacchetti.} In assenza di autenticazione, un dispositivo non autorizzato può trasmettere pacchetti arbitrari sulla rete VLC, simulando il comportamento di un nodo legittimo e causando malfunzionamenti o attacchi di spoofing.
-    \item \textbf{Replay di messaggi.} Senza meccanismi di autenticazione e protezione, è possibile catturare e ritrasmettere pacchetti validi, inducendo il ricevitore ad accettare messaggi duplicati o obsoleti.
+    \item \textbf{Injection di pacchetti.} In assenza di autenticazione, un dispositivo non autorizzato può trasmettere pacchetti arbitrari sulla rete VLC, simulando il comportamento di un nodo legittimo e causando malfunzionamenti o attacchi di spoofing;
+    \item \textbf{Replay di messaggi.} Senza meccanismi di autenticazione e protezione, è possibile catturare e ritrasmettere pacchetti validi, inducendo il ricevitore ad accettare messaggi duplicati o obsoleti;
     % risolvibile da integrity (MIC)
-    \item \textbf{Man-in-the-Middle (MitM).} Un attaccante può inserirsi tra trasmettitore e ricevitore, modificando i pacchetti in transito o iniettando messaggi malevoli, compromettendo l'integrità e l'autenticità della comunicazione.
+    \item \textbf{\gls{mitm}.} Un attaccante può inserirsi tra trasmettitore e ricevitore, modificando i pacchetti in transito o iniettando messaggi malevoli, compromettendo l'integrità e l'autenticità della comunicazione;
     % risolvibile da confidentiality
-    \item \textbf{Intercettazione del segnale ottico.} Un attaccante posizionato in modo opportuno può intercettare il fascio luminoso trasmesso tra i dispositivi, acquisendo i pacchetti scambiati e potenzialmente informazioni sensibili come password o dati privati. Come si osserverà dai risultati dei test nel capitolo \ref{cap:test}, considerando che la luce visibile non si propaga in maniera totalmente unidirezionale, questo tipo di attacco non è una possibilità remota, nel momento in cui l'attaccante ha accesso all'ambiente in cui avviene la comunicazione.
+    \item \textbf{Intercettazione del segnale ottico.} Un attaccante posizionato in modo opportuno può intercettare il fascio luminoso trasmesso tra i dispositivi, acquisendo i pacchetti scambiati e potenzialmente informazioni sensibili come password o dati privati. Come si osserverà dai risultati dei test nel capitolo \ref{cap:test}, considerando che la luce visibile non si propaga in maniera totalmente unidirezionale, questo tipo di attacco non è una possibilità remota, nel momento in cui l'attaccante ha accesso all'ambiente in cui avviene la comunicazione;
     % irrisolvibile se l'attaccante ha accesso al luogo della comunicazione, oppure con codici di correzione molto potenti
     \item \textbf{Distruzione o alterazione dei pacchetti.} Un attaccante può disturbare la comunicazione inviando segnali ottici che interferiscono con la trasmissione, causando la perdita o la corruzione dei dati.
 \end{itemize}
@@ -144,7 +144,7 @@ Nel replay dei messaggi, l'attaccante cattura messaggi legittimi inviati da un n
 
 
 \paragraph{Possibili Contromisure alle altre Vulnerabilità.}
-Una possibile contromisura all'attacco Man-in-the-Middle si può implementare semplicemente aggiungendo un \gls{mic} al \gls{phy} frame. Ovvero un codice generato da una funzione di hash, calcolato sia sulla \gls{otp} che sul payload, che possa essere verificato dal ricevitore, in modo tale da assicurare che il messaggio non abbia ricevuto modifiche non autorizzate durante la trasmissione.
+Una possibile contromisura all'attacco \gls{mitm} si può implementare semplicemente aggiungendo un \gls{mic} al \gls{phy} frame. Ovvero un codice generato da una funzione di hash, calcolato sia sulla \gls{otp} che sul payload, che possa essere verificato dal ricevitore, in modo tale da assicurare che il messaggio non abbia ricevuto modifiche non autorizzate durante la trasmissione.
 
 L'intercettazione del segnale ottico si può mitigare attraverso la crittografia dei messaggi, ad esempio criptando il messaggio con la chiave pubblica del device destinatario, in modo tale che sia l'unico in grado di decifrarlo e leggerne il contenuto. Oppure usando una chiave condivisa tra i due device in modo tale da garantire al contempo anche l'autenticazione.
 

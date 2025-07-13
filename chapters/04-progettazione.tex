@@ -79,7 +79,7 @@ Il codice implementato, come del resto il codice sorgente di OpenVLC, è stato s
 \noindent Il modulo è organizzato, secondo le best practice del linguaggio C, in due file:
 \begin{itemize}
     \item \texttt{PhyAuthP2P.h}, che definisce l'interfaccia dichiarando le funzioni e le costanti necessarie;
-    \item \texttt{PhyAuthP2P.c}, che definisce tali funzioni implementando la generazione di \gls{otp};
+    \item \texttt{PhyAuthP2P.c}, che definisce tali funzioni implementando la generazione di \gls{otp}.
 \end{itemize}
 
 
@@ -96,11 +96,11 @@ In particolare, il trasmettitore la chiama all'interno di \texttt{construct\_fra
 
 Il modulo PhyAuthP2P essendo stato sviluppato come parte del kernel Linux richiede le seguenti dipendenze per la corretta compilazione e funzionamento e per implementare le funzionalità crittografiche:
 \begin{itemize}
-    \item \texttt{<crypto/hash.h>}: fornisce le API per la gestione delle funzioni di hash e HMAC.
-    \item \texttt{<linux/crypto.h>}: include le primitive crittografiche del kernel.
-    \item \texttt{<linux/string.h>}: funzioni di manipolazione delle stringhe.
-    \item \texttt{<linux/slab.h>}: gestione della memoria dinamica nel kernel.
-    \item \texttt{<linux/err.h>}: gestione degli errori.
+    \item \texttt{<crypto/hash.h>}: fornisce le API per la gestione delle funzioni di hash e HMAC;
+    \item \texttt{<linux/crypto.h>}: include le primitive crittografiche del kernel;
+    \item \texttt{<linux/string.h>}: funzioni di manipolazione delle stringhe;
+    \item \texttt{<linux/slab.h>}: gestione della memoria dinamica nel kernel;
+    \item \texttt{<linux/err.h>}: gestione degli errori;
     \item \texttt{<linux/types.h>}: definizioni dei tipi di dato.\\\\\\
 \end{itemize}
 
