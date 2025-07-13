@@ -2,6 +2,10 @@
 \label{cap:conclusioni}
 
 % ================================================================= %
+\section{Discussione}
+In questa tesi è stato presentato un modello di autenticazione dei messaggi a livello fisico per OpenVLC. Sono stati approfonditi in dettaglio gli aspetti di progettazione ed implementazione di tale modello, il quale in fase di test, ha dimostrato di poter garantire maggior sicurezza alle comunicazioni \gls{vlc} non introducendo differenze significative nelle prestazioni della trasmissione.\\
+È stata inoltre effettuata un'analisi dettagliata sul sistema OpenVLC, sulle sue componenti e sul suo funzionamento e condotti test esaustivi per valutare la \gls{vlc} in diverse condizioni di distanza, inclinazione e luce ambientale.
+
 \section{Raggiungimento degli obiettivi}
 L'obiettivo primario di questo progetto era progettare e implementare un modulo di autenticazione a livello fisico per la piattaforma OpenVLC, in grado di prevenire attacchi di replay e packet injection nei primi stadi della comunicazione. Come definito nel piano di lavoro, gli obiettivi obbligatori erano:
 \begin{itemize}
@@ -13,10 +17,10 @@ L'obiettivo primario di questo progetto era progettare e implementare un modulo 
 \end{itemize}
 Tutti questi punti sono stati soddisfatti: le schede sono state configurate con Debian 8 e driver OpenVLC\_VL\_IR 1.3, si è approfondito lo standard \gls{ieee} 802.15.7, e il modulo \texttt{PhyAuthP2P} è stato integrato nel driver OpenVLC e testato in diverse condizioni, confermando che l'introduzione del meccanismo di autenticazione permette di scartare pacchetti illegittimi non degradando le prestazioni.
 
-L'obiettivo desiderabile \textbf{D01} (Testare e validare il modulo sviluppato in ambiente con luce ambiente) è stato esplorato: i test non hanno evidenziato alcuna differenza rispetto al framework OpenVLC originale.
+L'obiettivo desiderabile D01 (Testare e validare il modulo sviluppato in ambiente con luce ambiente) è stato esplorato: i test non hanno evidenziato alcuna differenza rispetto al framework OpenVLC originale.
 
-L'obbiettivo facoltativo \textbf{F02} (Testare il sistema in condizioni più rumorose (con disturbo indotto)) è stato soddisfatto.
-L'obbiettivo facoltativo \textbf{F01} (Effettuare il fine tuning delle resistenze per ottimizzare la ricezione del segnale) non è stato esplorato.
+L'obbiettivo facoltativo F02 (Testare il sistema in condizioni più rumorose (con disturbo indotto)) è stato soddisfatto.
+L'obbiettivo facoltativo F01 (Effettuare il fine tuning delle resistenze per ottimizzare la ricezione del segnale) non è stato esplorato.
 
 \section{Conoscenze acquisite}
 Nel corso di questo progetto ho avuto l'opportunità di approfondire competenze in:
@@ -30,14 +34,12 @@ Nel corso di questo progetto ho avuto l'opportunità di approfondire competenze 
 Queste competenze rappresentano sia un ampliamento delle conoscenze teoriche sia uno sviluppo di abilità pratiche.
 
 \section{Valutazione personale e sviluppi futuri}
-L'esperienza di stage e tesi è stata altamente formativa. Le principali difficoltà incontrate sono state la configurazione iniziale dei cape OpenVLC su Debian “jessie” e la gestione della sincronia temporale per l'OTP, superate mediante documentazione dettagliata e test incrementali.
+L'esperienza di stage e tesi è stata altamente formativa. Le principali difficoltà incontrate sono state la configurazione iniziale dei cape OpenVLC e la gestione del sistema operativo Debian “jessie” in quanto obsoleto.
 
-La soddisfazione maggiore deriva dall'aver realizzato un proof-of-concept funzionante, con impatto minimo sulle prestazioni e potenziale estendibilità. Tra i possibili prolungamenti di questo lavoro si segnalano:
+La soddisfazione maggiore deriva dall'aver realizzato un proof-of-concept funzionante, con impatto minimo sulle prestazioni e potenziale estendibilità. Come possibili sviluppi futuri di questo progetto si segnalano:
 \begin{itemize}
-  \item Integrazione di un \textbf{Message Integrity Code} per contrastare attacchi \gls{mitm};
+  \item Integrazione di un Message Integrity Code per contrastare attacchi \gls{mitm};
   \item Valutazione di codici di correzione più potenti per ambienti ad alto rumore luminoso;
   \item Cifratura dei dati al fine di introdurre confidenzialità;
-  \item Estensione del modulo a comunicazioni \textbf{multipoint}.
+  \item Estensione del modulo a comunicazioni multipoint.
 \end{itemize}
-
-\noindent In conclusione, il progetto ha raggiunto i risultati prefissati, fornendo un valido punto di partenza per ulteriori ricerche sulla sicurezza nella VLC.
