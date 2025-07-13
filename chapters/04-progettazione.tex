@@ -74,11 +74,34 @@ La posizione e la lunghezza della porzione di frame utilizzata per l'operazione 
 
 % ================================================================= %
 \section{Implementazione}
-% spiega tutto quello che hai fatto testbed codice modificato (motivazione scelte)
+Il codice implementato, come del resto il codice sorgente di OpenVLC, è stato scritto interamente in linguaggio C, con aderenza allo standard C99. È stato realizzato come un modulo esterno isolato dal codice OpenVLC, al fine di perseguire modularità e minimizzare i punti di contatto con il codice esistente.
+
+\noindent Il modulo è organizzato, secondo le best practice del linguaggio C, in due file:
+\begin{itemize}
+    \item \texttt{PhyAuthP2P.h}, che definisce l'interfaccia dichiarando le funzioni e le costanti necessarie;
+    \item \texttt{PhyAuthP2P.c}, che definisce tali funzioni implementando la generazione di \gls{otp};
+\end{itemize}
 
 
+\paragraph{Funzionalità principali.}
+La funzione \texttt{hmac\_sha256} calcola l'HMAC usando SHA-256, sfruttando le API di crypto del kernel. Riceve in input la \gls{psk}, l'intervallo di tempo, il \textit{sequence number} e il \textit{src-addr} e restituisce il digest.\\
+La funzione \texttt{truncate} applica la "dynamic truncation" secondo RFC 4226, estraendo 4 byte dal risultato di \texttt{hmac\_sha256} per ottenere la \gls{otp}.\\
+Infine \texttt{generate\_potp}, la funzione principale del modulo, invoca le prime due funzioni per generare la \gls{otp} e restituirla al chiamante.
 
+\paragraph{Interazione con OpenVLC.}
+Questa funzione di generazione della \gls{otp} viene utilizzata, nel codice OpenVLC, sia dal trasmettitore che dal ricevitore.
+In particolare, il trasmettitore la chiama all'interno di \texttt{construct\_frame\_header} per generare la \gls{otp} e successivamente inglobarla nei segnali fisici. Il ricevitore invece, la chiama all'interno di \texttt{phy\_decoding}, dopo aver estratto la \gls{otp} contenuta nel pacchetto, utilizzando diversi valori di T ed SN al fine di garantire la flessibilità discussa nella sezione precedente.
 
+\paragraph{Dipendenze}
 
+Il modulo PhyAuthP2P essendo stato sviluppato come parte del kernel Linux richiede le seguenti dipendenze per la corretta compilazione e funzionamento e per implementare le funzionalità crittografiche:
+\begin{itemize}
+    \item \texttt{<crypto/hash.h>}: fornisce le API per la gestione delle funzioni di hash e HMAC.
+    \item \texttt{<linux/crypto.h>}: include le primitive crittografiche del kernel.
+    \item \texttt{<linux/string.h>}: funzioni di manipolazione delle stringhe.
+    \item \texttt{<linux/slab.h>}: gestione della memoria dinamica nel kernel.
+    \item \texttt{<linux/err.h>}: gestione degli errori.
+    \item \texttt{<linux/types.h>}: definizioni dei tipi di dato.\\\\\\
+\end{itemize}
 
-Il codice sviluppato è tracciato nella repository del progetto nel branch PhyAuthP2P: \cite{site:openvlc-pa-github}.
+\noindent Il codice sviluppato è tracciato nella repository del progetto nel branch PhyAuthP2P: \cite{site:openvlc-pa-github}.
