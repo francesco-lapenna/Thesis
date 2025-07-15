@@ -59,19 +59,21 @@ Nella seguente tabella si riassumono i risultati dei test descritti nella preced
 \begin{table}[H]
     \caption{Tabella riassuntiva dei risultati dei test sul modulo di autenticazione}
     \label{tab:riass-test-auth}
-    \begin{tabularx}{\textwidth}{lllllc}
-        \hline
-        \textbf{Test} & \textbf{Interval} & \textbf{Transfer} & \textbf{Bandwidth} & \textbf{Jitter} & \textbf{Lost/Total}\\
-        \hline
-        OpenVLC\\in ambiente\\luminoso & 30.4 sec & 1.43 MBytes & 396 Kbits/sec & 0.126 ms & 19/1898 (1\%) \\
-        \hline
-        OpenVLC\\+ modulo\\in ambiente\\luminoso & 30.8 sec & 1.45 MBytes & 396 Kbits/sec & 0.034 ms & 18/1923 (0.94\%) \\
-        \hline
-        OpenVLC\\+ modulo\\in ambiente\\buio & 30.5 sec & 1.46 MBytes & 400 Kbits/sec & 0.050 ms & 0/1988 (0\%) \\
-        \hline
-        OpenVLC\\+ modulo\\in ambiente\\luminoso\\con disturbo & 31.6 sec & 1.41 MBytes & 375 Kbits/sec & 0.052 ms & 122/1973 (6.2\%) \\
-        \hline
-    \end{tabularx}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{llllll}
+            \hline
+            \textbf{Test} & \textbf{Interval} & \textbf{Transfer} & \textbf{Bandwidth} & \textbf{Jitter} & \textbf{Lost/Total}\\
+            \hline
+            OpenVLC\\in ambiente\\luminoso & 30.4 sec & 1.43 MBytes & 396 Kbits/sec & 0.126 ms & 19/1898 (1\%) \\
+            \hline
+            OpenVLC\\+ modulo\\in ambiente\\luminoso & 30.8 sec & 1.45 MBytes & 396 Kbits/sec & 0.034 ms & 18/1923 (0.94\%) \\
+            \hline
+            OpenVLC\\+ modulo\\in ambiente\\buio & 30.5 sec & 1.46 MBytes & 400 Kbits/sec & 0.050 ms & 0/1988 (0\%) \\
+            \hline
+            OpenVLC\\+ modulo\\in ambiente\\luminoso\\con disturbo & 31.6 sec & 1.41 MBytes & 375 Kbits/sec & 0.052 ms & 122/1973 (6.2\%) \\
+            \hline
+        \end{tabular}
+    }
 \end{table}
 
 \noindent Come si può osservare dalle prime due righe della tabella \ref{tab:riass-test-auth}, a parità di condizioni ambientali, non c'è alcuna differenza sistematicamente significativa tra le prestazioni del sistema con e senza l'utilizzo del modulo di autenticazione. Le lievi differenze presenti sono infatti da interpretarsi come rumore. Di conseguenza si può affermare che la sua introduzione non ha un impatto rilevante sulle prestazioni del sistema.
