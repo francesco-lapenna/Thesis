@@ -78,9 +78,9 @@ Nella seguente tabella si riassumono i risultati dei test descritti nella preced
 
 \noindent Come si può osservare dalle prime due righe della tabella \ref{tab:riass-test-auth}, a parità di condizioni ambientali, non c'è alcuna differenza sistematicamente significativa tra le prestazioni del sistema con e senza l'utilizzo del modulo di autenticazione. Le lievi differenze presenti sono infatti da interpretarsi come rumore. Di conseguenza si può affermare che la sua introduzione non ha un impatto rilevante sulle prestazioni del sistema.
 
-Si possono invece notare differenze significative tra i test svolti in ambiente luminoso e quelli svolti in divese condizioni di luminosità.\\
+Si possono invece notare differenze significative tra i test svolti in ambiente luminoso e quelli svolti in diverse condizioni di luminosità.\\
 In particolare, il test svolto in ambiente buio ha mostrato un'ampiezza di banda (bandwidth) e un tasso di perdita migliori rispetto a quelli svolti in ambiente luminoso. Questo suggerisce che la comunicazione tramite luce visibile, seppure in maniera minima, trattandosi di una variazione dell'1\%, è sicuramente influenzata dalla presenza di luce ambientale.\\
-Inoltre, il test svolto in ambiente luminoso con disturbo indotto ha mostrato un tasso di perdita notevolmente più alto rispetto agli altri test, pari al 6.2\%. Si deduce che la presenza di fonti luminose dirette in direzione del fotodiodo ricevitore, sono in grado di disturbare notevolmente la comunicazione. Tuttavia è importante evidenziare che la situazione in cui è stato testato il sistema, e cioè posizionando una fonte luminosa a distanza molto ravvicinata al fotodiodo, è estrema. Di conseguenza, resta particolarmente difficoltoso, per un potenziale attaccante che volesse disturbare la ricezione dei dati, farlo in questa maniera.
+Inoltre, il test svolto in ambiente luminoso con disturbo indotto ha mostrato un tasso di perdita notevolmente più alto rispetto agli altri test, pari al 6.2\%. Si deduce che la presenza di fonti luminose dirette in direzione del fotodiodo ricevitore, sia in grado di disturbare notevolmente la comunicazione. Tuttavia è importante evidenziare che la situazione in cui è stato testato il sistema, e cioè posizionando una fonte luminosa a distanza molto ravvicinata al fotodiodo, è estrema. Di conseguenza, resta particolarmente difficoltoso, per un potenziale attaccante che volesse disturbare la ricezione dei dati, farlo in questa maniera.
 
 % ================================================================= %
 \section{Test su OpenVLC}
@@ -154,7 +154,7 @@ In figura \ref{fig:ber_distanze} si riporta il \gls{ber} in funzione della dista
     \label{fig:ber_distanze}
 \end{figure}
 
-Analogamente, in figura \ref{fig:ber_inclinazioni} si riporta il \gls{ber} in funzione dell'inclinazione tra le schede. Anche in questo caso si osserva una degradazione della comunicaione all'aumentare dell'inclinazione, con un tasso di errore che cresce in maniera esponenziale a partire dai 60°.
+Analogamente, in figura \ref{fig:ber_inclinazioni} si riporta il \gls{ber} in funzione dell'inclinazione tra le schede. Anche in questo caso si osserva una degradazione della comunicazione all'aumentare dell'inclinazione, con un tasso di errore che cresce in maniera esponenziale a partire dai 60°.
 
 È interessante notare che, anche ad un'inclinazione ampia come 60°, il BER è comunque limitato. Il che suggerisce che, contrariamente a quanto si potrebbe pensare, la comunicazione tramite luce visibile non sia strettamente unidirezionale, rendendo possibile l'intercettazione del segnale anche da posizioni angolate.\\
 Tuttavia, bisogna considerare che i test sono stati svolti ad una distanza limitata, e che combinata a distanze maggiori, l'inclinazione ha sicuramente un impatto negativo sulla comunicazione. Inoltre, come dimostrano i test successivi, all'aumentare dell'inclinazione, corrisponde un aumento del \gls{plr}, il che renderebbe difficoltosa un'intercettazione esaustiva del segnale ad alte inclinazioni.
@@ -187,7 +187,7 @@ Analogamente, in figura \ref{fig:prr_inclinazioni} si riporta il \gls{prr} e la 
 In figura \ref{fig:rs_distanze} si riporta la percentuale di byte corrotti in funzione della distanza tra le schede. Inoltre si riportano diversi valori di Reed-Solomon, in modo tale da poter individuare, per ogni distanza, la presenza di un valore di Reed-Solomon che permetta di correggere gli errori a quella distanza.
 
 Ogni valore di Reed-Solomon è indicato da RS(n,k), dove n è il numero di byte totali (informativi + codici di correzione) e k è il numero di byte informativi. Ad esempio RS(15,2) indica un codice Reed-Solomon che per ogni 2 byte di informazione trasmessi, aggiunge 13 byte di codici di correzione, per un totale di 15 byte.\\
-Ogni valore di Reed-Solomon è graficamente rappresentato da una stepped area, in cui la parte inferiore rappresenta la percentuale di byte che è in grado di correggere. In particolare, sono riportati cinque possibili valori di Reed-Solomon (in ordine di capacità di correzione): RS(15,2), RS(15,4), RS(15,7), RS(15,11) e RS(216,200).\\
+Ogni valore di Reed-Solomon è graficamente rappresentato da una \textit{stepped area}, in cui la parte inferiore rappresenta la percentuale di byte che è in grado di correggere. In particolare, sono riportati cinque possibili valori di Reed-Solomon (in ordine di capacità di correzione): RS(15,2), RS(15,4), RS(15,7), RS(15,11) e RS(216,200).\\
 Il valore supportato nativamente da OpenVLC è RS(216,200). Gli altri valori sono stati scelti in quanto sono i più diffusi, nonché quelli indicati dallo standard IEEE 802.15.7 per questo tipo di comunicazione\\
 Naturalmente, ad una maggiore capacità di correzione corrisponderebbe inevitabilmente un rallentamento nella comunicazione, in quanto si dovrebbero trasmettere più byte di codici di correzione.
 

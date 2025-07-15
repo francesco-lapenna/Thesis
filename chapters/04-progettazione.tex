@@ -13,7 +13,7 @@ I pacchetti che non presentano una valida \gls{otp} vengono scartati, altrimenti
 
 
 \subsection{Generazione e verifica dell'OTP}
-Una \gls{otp} è un codice di autenticazione temporaneo, specifico per dispositivo in quanto involve una chiave segreta e valido per una sola operazione o comunque per un breve lasso di tempo.
+Una \gls{otp} è un codice di autenticazione temporaneo, specifico per dispositivo in quanto coinvolge una chiave segreta e valido per una sola operazione o comunque per un breve lasso di tempo.
 
 \paragraph{Generazione.}
 La formula utilizzata dal trasmettitore per la generazione della \gls{otp} è la seguente:
@@ -28,7 +28,7 @@ La sicurezza di questo tipo di \gls{otp} risiede proprio nella sua dipendenza da
 \paragraph{Lunghezza.}
 Per essere resistente ad attacchi \textit{brute force}, una \gls{otp} deve avere una lunghezza di almeno 31 bit; naturalmente maggiore è la dimensione della \gls{otp} e maggiore è la latenza introdotta nella comunicazione.\\
 Considerato ciò, si è deciso di utilizzare una \gls{otp} di lunghezza 32 bit, in modo tale che fosse abbastanza resistente agli attacchi ma senza introdurre rallentamenti percepibili nella comunicazione.\\
-La funzione Truncate, com'è intuibile, troncherà l'output della funzione HMAC a tale lunghezza.
+La funzione \texttt{Truncate}, come è intuibile, troncherà l'output della funzione HMAC a tale lunghezza.
 
 \paragraph{HMAC.}
 La funzione \gls{hmac}\glsfirstoccur, è un meccanismo crittografico che consente di verificare l'integrità e l'autenticità di un messaggio. In questo contesto, HMAC viene utilizzato per generare la \gls{otp} combinando la chiave segreta K con i parametri T, SN e src-addr tramite una funzione di hash sicura. Il risultato è un codice che può essere calcolato solo da chi possiede la chiave K e che varia in base ai parametri forniti, garantendo così che ogni \gls{otp} sia unica e valida per un unico utilizzo ed intervallo temporale.
@@ -109,4 +109,4 @@ Il modulo PhyAuthP2P essendo stato sviluppato come parte del kernel Linux richie
     \item \texttt{<linux/types.h>}: definizioni dei tipi di dato.\\\\\\
 \end{itemize}
 
-\noindent Il codice sviluppato è tracciato nella repository del progetto nel branch PhyAuthP2P: \cite{site:openvlc-pa-github}.
+\noindent Il codice sviluppato è tracciato nella repository del progetto nel branch PhyAuthP2P \cite{site:openvlc-pa-github}.
