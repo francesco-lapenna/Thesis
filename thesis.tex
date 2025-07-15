@@ -1,4 +1,4 @@
-\documentclass[
+\documentclass[ % commenta questo blocco per versione web
     12pt,       % fontsize
     twoside,    % asymmetric pagination, for printed view
     openright,  % open chapeters on right page
@@ -7,20 +7,6 @@
     italian,
 ]{book}
 \newcommand{\isprintable}{1}
-
-\usepackage[
-    nomarginpar,  % togli note a margine che tanto non uso
-    inner=4cm,    % tutti i bordi a 3cm,, interno +1cm per rilegatura
-    outer=3cm,
-    top=3cm,
-    bottom=3cm
-]{geometry}
-
-% \usepackage{showframe}  % <-- mostra i bordi per debug
-
-\linespread{1.5}                     % interlinea 1.5
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \ifdefined \isprintable
 \else
@@ -33,6 +19,19 @@
     ]{book}
     \newcommand{\isprintable}{0}
 \fi
+
+\usepackage[
+    nomarginpar,  % togli note a margine che tanto non uso
+    inner=4cm,    % tutti i bordi a 3cm,, interno +1cm per rilegatura
+    outer=3cm,
+    top=3cm,
+    bottom=3cm
+]{geometry}
+
+\linespread{1.5}                     % interlinea 1.5
+
+% \usepackage{showframe}  % <-- mostra i bordi per debug
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{config/packages}
 
