@@ -3,8 +3,16 @@
 
 % ================================================================= %
 \section{Discussione}
-In questa tesi è stato presentato un modello di autenticazione dei messaggi a livello fisico per OpenVLC. Sono stati approfonditi in dettaglio gli aspetti di progettazione ed implementazione di tale modello, il quale in fase di test, ha dimostrato di poter garantire maggior sicurezza alle comunicazioni \gls{vlc} non introducendo differenze significative nelle prestazioni della trasmissione.\\
-È stata inoltre effettuata un'analisi dettagliata sul sistema OpenVLC, sulle sue componenti e sul suo funzionamento e condotti test esaustivi per valutare la \gls{vlc} in diverse condizioni di distanza, inclinazione e luce ambientale.
+In questa tesi è stato innanzitutto condotto uno studio accurato sulla piattaforma OpenVLC, sulle sue componenti e sul suo funzionamento, esponendo nel capitolo \ref{cap:analisi} tutti i dettagli \textit{hardware} e \textit{software} riguardanti questo \textit{framework}. Includendo \textit{testbed}, problematiche riscontrate e come risolverle, in modo tale che il progetto qui discusso sia facilmente riproducibile.\\
+Sono state poi introdotte le principali vulnerabilità di OpenVLC e, per ognuna, delle possibili contromisure adatte a mitigarla.
+
+Successivamente, nel capitolo \ref{cap:progettazione}, è stato presentato l'obbiettivo principale di questo progetto, ovvero un modulo di autenticazione dei messaggi a livello fisico per OpenVLC. È stato spiegato dettagliatamente il funzionamento del meccanismo della \gls{otp} implementato e motivate le scelte di \textit{design} e progettazione.
+
+Sono infine stati condotti numerosi test, riportati nel capitolo \ref{cap:test}, al fine di testare il sistema in diverse condizioni di distanza, inclinazione, luce ambientale e con e senza l'utilizzo del modulo.\\
+I test sul modulo hanno dimostrato che esso non introduce una differenza statisticamente significativa sulle prestazioni del sistema. Dai test in ambiente luminoso risulta infatti una \textit{datagram loss} del 1\% non utilizzando il modulo e dello 0.94\% utilizzandolo. La \textit{datagram loss} si azzera in ambiente buio e sale invece al 6.2\% in ambiente luminoso con disturbo luminoso indotto. Il che dimostra quanto la \gls{vlc} sia sensibile all'ambiente in cui viene utilizzata.\\
+Sono stati riportati in seguito diversi test sul \textit{framework} OpenVLC originale. Tali test avevano come obbiettivo l'osservazione di quanto si degrada la qualità della comunicazione in funzione di distanza ed inclinazione. Tutti hanno mostrato, come ipotizzato, un progressivo peggioramento dell'affidabilità della trasmissione all'aumentare di tali variabili; passando, ad esempio, da un \gls{ber} dell'1.25\% ad una distanza di 50 centimetri ad un \gls{ber} del 66.01\% ad una distanza di 200 centimetri. Nonostante tale degradazione, degne di nota sono le prestazioni del sistema a 45 e 60 gradi, le quali dimostrano che la luce visibile non è totalmente unidirezionale, e di conseguenza può essere intercettata anche ad alte angolazioni.
+
+In conclusione, il modulo sviluppato, in fase di test, ha dimostrato di poter garantire maggior sicurezza alle comunicazioni \gls{vlc} non introducendo differenze significative nelle prestazioni della trasmissione.\\
 
 \section{Raggiungimento degli obiettivi}
 L'obiettivo primario di questo progetto era progettare e implementare un modulo di autenticazione a livello fisico per la piattaforma OpenVLC, in grado di prevenire attacchi di replay e packet injection nei primi stadi della comunicazione. Come definito nel piano di lavoro, gli obiettivi obbligatori erano:
