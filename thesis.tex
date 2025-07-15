@@ -1,3 +1,25 @@
+\documentclass[
+    12pt,       % fontsize
+    twoside,    % asymmetric pagination, for printed view
+    openright,  % open chapeters on right page
+    a4paper,
+    english,
+    italian,
+]{book}
+\newcommand{\isprintable}{1}
+
+% \usepackage[
+%     paper=a4paper,
+%     inner=1cm,
+%     outer=3cm,
+%     top=3cm,
+%     bottom=3cm,
+% ]{geometry}
+
+\linespread{1.5}                     % interlinea 1.5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \ifdefined \isprintable
 \else
     \documentclass[
