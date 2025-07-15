@@ -70,7 +70,7 @@ Il trasmettitore, infatti, applica l'operazione di \gls{xor} tra la sequenza di 
 
 Questa tecnica garantisce che l'OTP sia trasmessa in modo non direttamente leggibile, aumentando la sicurezza contro attacchi di intercettazione. Inoltre, l'operazione di \gls{xor} è computazionalmente leggera e non introduce latenza significativa nella comunicazione.
 
-La posizione e la lunghezza della porzione di frame utilizzata per l'operazione di \gls{xor} sono concordate tra trasmettitore e ricevitore, inoltre in una comunicazione \gls{p2p} gli indirizzi Destinatione e Source sono noti ad entrambi. Ciò permette una corretta estrazione e verifica dell'OTP.
+La posizione e la lunghezza della porzione di \textit{frame} utilizzata per l'operazione di \gls{xor} sono concordate tra trasmettitore e ricevitore, inoltre in una comunicazione \gls{p2p} gli indirizzi Destinatione e Source sono noti ad entrambi. Ciò permette una corretta estrazione e verifica dell'OTP.
 
 
 % ================================================================= %
@@ -88,9 +88,9 @@ Il modulo PhyAuthP2P implementa tre funzioni fondamentali per la generazione e g
 
 \texttt{hmac\_sha256()}: questa funzione si occupa di calcolare il codice HMAC utilizzando l'algoritmo SHA-256. Sfrutta le API crittografiche messe a disposizione dal kernel Linux, garantendo così efficienza e sicurezza nell'esecuzione. I parametri di input sono la chiave segreta precondivisa (\gls{psk}), l'intervallo di tempo corrente, il \textit{sequence number} e l'indirizzo MAC del trasmettitore (\textit{src-addr}). Il risultato prodotto è un digest di 32 byte, che rappresenta il valore hash autenticato e costituisce la base per la generazione dell'OTP.
 
-\texttt{truncate()}: questa funzione applica la tecnica di "dynamic truncation" descritta nello standard RFC 4226. In pratica, estrae 4 byte dal digest ottenuto dalla funzione \texttt{hmac\_sha256}, riducendo così la dimensione dell'output a 32 bit, che corrisponde alla lunghezza scelta per l'OTP. Il processo di \textit{truncation} garantisce che l'OTP sia compatta ma sufficientemente sicura contro attacchi di forza bruta.
+\texttt{truncate()}: questa funzione applica la tecnica di \textit{"dynamic truncation"} descritta nello standard RFC 4226. In pratica, estrae 4 byte dal digest ottenuto dalla funzione \texttt{hmac\_sha256}, riducendo così la dimensione dell'output a 32 bit, che corrisponde alla lunghezza scelta per l'OTP. Il processo di \textit{truncation} garantisce che l'OTP sia compatta ma sufficientemente sicura contro attacchi di forza bruta.
 
-\texttt{generate\_potp()}: rappresenta la funzione principale del modulo. Riceve in ingresso tutti i parametri necessari (chiave segreta, intervallo di tempo, sequence number, indirizzo MAC) e richiama in sequenza le funzioni \texttt{hmac\_sha256} e \texttt{truncate} per produrre l'OTP finale. Questa funzione incapsula l'intero processo di generazione, semplificando l'integrazione con il resto del sistema e permettendo sia al trasmettitore che al ricevitore di ottenere rapidamente il codice OTP da utilizzare o verificare.
+\texttt{generate\_potp()}: rappresenta la funzione principale del modulo. Riceve in ingresso tutti i parametri necessari (chiave segreta, intervallo di tempo, \textit{sequence number}, indirizzo MAC) e richiama in sequenza le funzioni \texttt{hmac\_sha256} e \texttt{truncate} per produrre l'OTP finale. Questa funzione incapsula l'intero processo di generazione, semplificando l'integrazione con il resto del sistema e permettendo sia al trasmettitore che al ricevitore di ottenere rapidamente il codice OTP da utilizzare o verificare.
 
 Queste funzioni sono state progettate per essere modulari e facilmente integrabili nel flusso di OpenVLC, consentendo una gestione sicura e flessibile dell'autenticazione a livello fisico. L'utilizzo delle API del kernel assicura inoltre che le operazioni crittografiche siano eseguite in modo ottimale e conforme agli standard di sicurezza.
 
@@ -109,4 +109,4 @@ Il modulo PhyAuthP2P essendo stato sviluppato come parte del kernel Linux richie
     \item \texttt{<linux/types.h>}: definizioni dei tipi di dato.\\\\\\
 \end{itemize}
 
-\noindent Il codice sviluppato è tracciato nella repository del progetto nel branch PhyAuthP2P \cite{site:openvlc-pa-github}.
+\noindent Il codice sviluppato è tracciato nella \textit{repository} del progetto nel \textit{branch} PhyAuthP2P \cite{site:openvlc-pa-github}.
