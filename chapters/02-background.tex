@@ -5,7 +5,7 @@
 
 % ================================================================= %
 \section{Visible light communication}
-Nelle telecomunicazioni, la \gls{vlc}, talvolta indicata anche come "LiFi", prevede l'uso della luce visibile (cioè la luce avente frequenza di 400-800 THz e lunghezza d'onda di 780-375 nm) come mezzo di trasmissione. La \gls{vlc} è un sottoinsieme delle tecnologie di comunicazione ottica wireless.
+Nelle telecomunicazioni, la \gls{vlc}, talvolta indicata anche come \textit{"LiFi"}, prevede l'uso della luce visibile (cioè la luce avente frequenza di 400-800 THz e lunghezza d'onda di 780-375 nm) come mezzo di trasmissione. La \gls{vlc} è un sottoinsieme delle tecnologie di comunicazione ottica wireless.
 
 Questa tecnologia usa comuni lampade fluorescenti e LED per trasmettere segnali da 10 kbit/s fino a 500 Mbit/s su corte distanze.
 
@@ -14,7 +14,7 @@ Generalmente il segnale luminoso viene ricevuto da un dispositivo elettronico do
 \subsection{Vantaggi e applicazioni}
 Una delle principali caratteristiche della \gls{vlc}, nonché la principale ragione della sua sicurezza, è l'incapacità della luce visibile di attraversare superfici opache. Se la comunicazione avviene in un ambiente chiuso, tale caratteristica permette di confinare la comunicazione a quell'ambiente. Di conseguenza, costringe un potenziale attaccante che vuole intercettare la comunicazione ad avere accesso fisico a tale ambiente.
 
-Un'altra caratteristica della \gls{vlc} è la possibilità di essere integrata a fonti di luce pre-esistenti, e di conseguenza essere usata al duplice scopo di fornire luce e trasmettere dati. Questa caratteristica apre le porte all'\gls{ubicomp}\glsfirstoccur, in quanto i dispositivi che emettono luce (come lampade, LED, schermi, semafori, ecc.) sono già presenti in abbondanza in ogni ambiente;
+Un'altra caratteristica della \gls{vlc} è la possibilità di essere integrata a fonti di luce pre-esistenti, e di conseguenza essere usata al duplice scopo di fornire luce e trasmettere dati. Questa caratteristica apre le porte all'\gls{ubicomp}\glsfirstoccur, in quanto i dispositivi che emettono luce (come lampade, LED, schermi, semafori, ecc.) sono già presenti in abbondanza in ogni ambiente.
 
 Un ulteriore ambito di applicazione promettente è l'\gls{ips}\glsfirstoccur. Analogamente al GPS, permette di localizzare un dispositivo, ma è in grado di operare in spazi chiusi dove il GPS non è disponibile.
 
@@ -31,11 +31,11 @@ Tuttavia, non definisce protocolli di sicurezza a livello fisico, in quanto assu
 \section{Modello OSI}
 
 L'\gls{osi}\glsfirstoccur è lo standard di riferimento per le reti di calcolatori. Sviluppato dalla International Organization for Standardization (ISO), definisce un'architettura sviluppata su sette livelli: \textit{Physical}, \textit{Data Link}, \textit{Network}, \textit{Transport}, \textit{Session}, \textit{Presentation}, ed \textit{Application}.\\
-I livelli più inerenti a quanto trattato in questa tesi sono i primi due: \gls{phy}\glsfirstoccur e \gls{mac}\glsfirstoccur il quale è un sottolivello del livello Data Link.
+I livelli più inerenti a quanto trattato in questa tesi sono i primi due: \gls{phy}\glsfirstoccur e \gls{mac}\glsfirstoccur il quale è un sottolivello del livello \textit{Data Link}.
 
 Il \gls{phy} è il primo livello del modello OSI. Si occupa della conversione di dati in segnali elettrici, radio o ottici e della trasmissione e ricezione di tali dati grezzi su un canale di comunicazione fisico.
 
-il \gls{mac} è il livello che controlla l'\textit{hardware} responsabile dell'interazione con il mezzo di trasmissione. Il livello \gls{mac} è responsabile della gestione dell'accesso al mezzo di trasmissione, della sincronizzazione dei dispositivi e della gestione degli errori. Insieme al \textit{logical link control layer (LLC)} costituisce il \textit{data link layer} del modello OSI.
+il \gls{mac} è il livello che controlla l'\textit{hardware} responsabile dell'interazione con il mezzo di trasmissione. Il livello \gls{mac} è responsabile della gestione dell'accesso al mezzo di trasmissione, della sincronizzazione dei dispositivi e della gestione degli errori. Insieme al \textit{Logical Link Control layer (LLC)} costituisce il \textit{Data Link layer} del modello OSI.
 
 % ================================================================= %
 \section{PhyAuth USENIX}
@@ -50,6 +50,6 @@ Questo \textit{framework} permette di rilevare accuratamente pacchetti sospetti 
 % ================================================================= %
 \section{OpenVLC e BeagleBone}
 OpenVLC è una piattaforma \textit{open source} per la comunicazione ottica wireless, sviluppata dal Pervasive Wireless Systems group del Dr. Giustiniano all'IMDEA Networks Institute (Madrid, Spagna).
-OpenVLC è progettata per essere flessibile e \textit{low-cost}, permettendo, nell'ultima versione, la trasmissione di dati ad una velocità di 400 kb/s e ad una distanza di quasi 20 metri.
+OpenVLC è progettata per essere flessibile e \textit{low-cost}, permettendo, nella versione 1.4 attualmente in sviluppo, la trasmissione di dati ad una velocità di 400 kb/s e ad una distanza di quasi 20 metri.
 
 OpenVLC è progettato per funzionare su BeagleBone Black, una piattaforma \textit{hardware} \textit{open source} \textit{low-cost} per sviluppatori, dotata di un processore ARM Cortex-A8 e di una serie di interfacce di comunicazione, tra cui USB, Ethernet e GPIO. BeagleBone è particolarmente adatto per applicazioni \textit{embedded} e \gls{iot}, grazie alla sua flessibilità e alle sue capacità di elaborazione.

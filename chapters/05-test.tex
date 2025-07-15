@@ -86,7 +86,7 @@ Inoltre, il test svolto in ambiente luminoso con disturbo indotto ha mostrato un
 \section{Test su OpenVLC}
 In questa sezione si riportano i risultati dei test svolti sul \textit{framework} OpenVLC originale, cioè senza l'utilizzo del modulo di autenticazione sviluppato. L'obbiettivo di questi test è quello di analizzare le prestazioni di OpenVLC a diverse distanze ed inclinazioni.
 
-Sono stati condotti nove test, in ognuno dei quali sono stati trasmessi 1000 pacchetti di dati tramite il comando \texttt{nc} (netcat), ognuno della dimensione di 1480 byte. In tutti i test il payload era formato da byte "FF", ovvero da 8 bit impostati a "1", in modo tale da poter individuare efficacemente eventuali bit corrotti. L'unica eccezione è il test denominato "50 cm bit-0", in cui il payload era formato da byte "00", ovvero da 8 bit impostati a "0", per poter osservare eventuali bias a favore di bit-0 piuttosto che bit-1.
+Sono stati condotti nove test, in ognuno dei quali sono stati trasmessi 1000 pacchetti di dati tramite il comando \texttt{nc} (netcat), ognuno della dimensione di 1480 byte. In tutti i test il \textit{payload} era formato da byte "FF", ovvero da 8 bit impostati a "1", in modo tale da poter individuare efficacemente eventuali bit corrotti. L'unica eccezione è il test denominato "50 cm bit-0", in cui il \textit{payload} era formato da byte "00", ovvero da 8 bit impostati a "0", per poter osservare eventuali bias a favore di bit-0 piuttosto che bit-1.
 
 Tutti i test sono stati svolti in ambiente luminoso e senza l'utilizzo di Reed-Solomon, in modo tale da poter osservare le prestazioni del canale fisico senza l'intervento di alcun protocollo di correzione degli errori.
 
@@ -97,14 +97,14 @@ Inoltre, c'è da precisare che le schede BeagleBone non dispongono di una capaci
     \item \gls{ber}\glsfirstoccur: rapporto tra il numero di bit ricevuti in errore e il numero totale di bit trasmessi, indicativo dell’affidabilità a livello fisico del canale;
     \item Percentuale di byte corrotti: percentuale di byte che contengono almeno un bit errato rispetto al totale dei byte trasmessi, utile per valutare la possibilità di correggere errori con Reed-Solomon;
     \item \gls{prr}\glsfirstoccur: frazione di pacchetti correttamente ricevuti sul numero di pacchetti inviati, misura l’efficacia complessiva del link;
-    \item \gls{plr}\glsfirstoccur: percentuale di pacchetti persi rispetto al totale inviato; è il complementare di PRR;
-    \item Percentuale di payload ricevuto: rapporto tra il numero di byte di payload validi ricevuti e il numero di byte di payload trasmessi, espressa in percentuale, per quantificare l’efficienza utile della trasmissione.
+    \item \gls{plr}\glsfirstoccur: percentuale di pacchetti persi rispetto al totale inviato; è il complementare di \gls{prr};
+    \item Percentuale di \textit{payload} ricevuto: rapporto tra il numero di byte di \textit{payload} validi ricevuti e il numero di byte di \textit{payload} trasmessi, espressa in percentuale, per quantificare l’efficienza utile della trasmissione.
 \end{itemize}
 
 \subsection{Data collection}
 Come accennato in precedenza, sono stati condotti nove test, tutti in ambiente luminoso.
 
-L'unico test in cui il payload era formato da byte "00" è il test denominato "50 cm bit-0", in cui le schede sono state posizionate una di fronte all'altra ad una distanza di 50 centimetri. In tutti gli altri il payload era formato da byte "FF".
+L'unico test in cui il \textit{payload} era formato da byte "00" è il test denominato "50 cm bit-0", in cui le schede sono state posizionate una di fronte all'altra ad una distanza di 50 centimetri. In tutti gli altri il \textit{payload} era formato da byte "FF".
 
 Nei test denominati "50 cm bit-1", "100 cm", "150 cm", "200 cm", le schede sono state posizionate perfettamente allineate una di fronte all'altra ad una distanza di 50, 100, 150 e 200 centimetri rispettivamente.
 
@@ -118,7 +118,7 @@ Nonostante, a prima vista, la differenza in tutte le metriche sembrerebbe minima
 
 Si osserva che le uniche metriche che non presentano una differenza significativa sono il \gls{prr} e il \gls{plr}. Il che denota, come ci si aspetterebbe date le pari condizioni ambientali in cui sono stati svolti i test, che in entrambi i casi le schede riescono a sincronizzarsi correttamente.
 
-Tuttavia, si osserva che il \gls{ber} è più basso per i bit-0 rispetto ai bit-1, con un valore di 1.10\% per i bit-0 e di 1.25\% per i bit-1. Inoltre, la percentuale di byte corrotti è più alta per i bit-1 (2.56\%) rispetto ai bit-0 (1.93\%). Infine, la percentuale di payload ricevuto è più alta per i bit-0 (99.24\%) rispetto ai bit-1 (95.83\%). Questo indica che i bit-1 tendono a essere corrotti più frequentemente rispetto ai bit-0, il che suggerisce un bias a favore dei bit-0.
+Tuttavia, si osserva che il \gls{ber} è più basso per i bit-0 rispetto ai bit-1, con un valore di 1.10\% per i bit-0 e di 1.25\% per i bit-1. Inoltre, la percentuale di byte corrotti è più alta per i bit-1 (2.56\%) rispetto ai bit-0 (1.93\%). Infine, la percentuale di \textit{payload} ricevuto è più alta per i bit-0 (99.24\%) rispetto ai bit-1 (95.83\%). Questo indica che i bit-1 tendono a essere corrotti più frequentemente rispetto ai bit-0, il che suggerisce un bias a favore dei bit-0.
 
 La presenza di questo bias comporta che le metriche di errore calcolate per i successivi test, in quanto basati su bit-1, sono da considerarsi sovrastimate. In una normale comunicazione, ci si aspetta un bilanciamento tra i bit-0 e i bit-1, e di conseguenza che le metriche di errore siano comprese tra i valori di errore dei bit-0 e dei bit-1 qui presentati.
 
@@ -150,7 +150,7 @@ In figura \ref{fig:ber_distanze} si riporta il \gls{ber} in funzione della dista
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{test/ber_distanze} 
-    \caption{Test \gls{ber} in funzione della distanza}
+    \caption{Test Bit Error Ratio (\gls{ber}) in funzione della distanza}
     \label{fig:ber_distanze}
 \end{figure}
 
@@ -166,7 +166,7 @@ Tuttavia, bisogna considerare che i test sono stati svolti ad una distanza limit
     \label{fig:ber_inclinazioni}
 \end{figure}
 
-In figura \ref{fig:prr_distanze} si riporta il \gls{prr} e la percentuale di payload ricevuto in funzione della distanza tra le schede. Si osserva un graduale peggioramento in entrambe le metriche. Si deduce che, all'aumentare della distanza, aumenta sia la perdita di interi pacchetti, sia la perdita di dati all'interno dei pacchetti stessi. 
+In figura \ref{fig:prr_distanze} si riporta il \gls{prr} e la percentuale di \textit{payload} ricevuto in funzione della distanza tra le schede. Si osserva un graduale peggioramento in entrambe le metriche. Si deduce che, all'aumentare della distanza, aumenta sia la perdita di interi pacchetti, sia la perdita di dati all'interno dei pacchetti stessi. 
 
 \begin{figure}[H] 
     \centering 
@@ -175,7 +175,7 @@ In figura \ref{fig:prr_distanze} si riporta il \gls{prr} e la percentuale di pay
     \label{fig:prr_distanze}
 \end{figure}
 
-Analogamente, in figura \ref{fig:prr_inclinazioni} si riporta il \gls{prr} e la percentuale di payload ricevuto in funzione dell'inclinazione tra le schede. Anche in questo caso si possono fare le medesime considerazioni fatte per i test in funzione della distanza.
+Analogamente, in figura \ref{fig:prr_inclinazioni} si riporta il \gls{prr} e la percentuale di \textit{payload} ricevuto in funzione dell'inclinazione tra le schede. Anche in questo caso si possono fare le medesime considerazioni fatte per i test in funzione della distanza.
 
 \begin{figure}[H] 
     \centering 

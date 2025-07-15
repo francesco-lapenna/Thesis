@@ -23,7 +23,7 @@ La formula utilizzata dal trasmettitore per la generazione della \gls{otp} è la
 \end{equation}
 in cui K denota la \gls{psk}, cioè la chiave segreta precondivisa tra le due schede; T è un numero intero che rappresenta l'intervallo di tempo nel quale la \gls{otp} è valida; SN è un \textit{sequence number} incrementale; \textit{src-addr} rappresenta l'indirizzo MAC del dispositivo trasmettitore.
 
-La sicurezza di questo tipo di \gls{otp} risiede proprio nella sua dipendenza da diversi parametri. Infatti si richiede ai dispositivi la conoscenza della chiave K, la \gls{otp} scade una volta concluso il periodo di tempo T, può essere utilizzata un'unica volta a causa del SN ed è strettamente legata al dispositivo che la genera grazie al src-addr.
+La sicurezza di questo tipo di \gls{otp} risiede proprio nella sua dipendenza da diversi parametri. Infatti si richiede ai dispositivi la conoscenza della chiave K, la \gls{otp} scade una volta concluso il periodo di tempo T, può essere utilizzata un'unica volta a causa del SN ed è strettamente legata al dispositivo che la genera grazie al \textit{src-addr}.
 
 \paragraph{Lunghezza.}
 Per essere resistente ad attacchi \textit{brute force}, una \gls{otp} deve avere una lunghezza di almeno 31 bit; naturalmente maggiore è la dimensione della \gls{otp} e maggiore è la latenza introdotta nella comunicazione.\\
@@ -31,15 +31,15 @@ Considerato ciò, si è deciso di utilizzare una \gls{otp} di lunghezza 32 bit, 
 La funzione \texttt{Truncate}, come è intuibile, troncherà l'output della funzione HMAC a tale lunghezza.
 
 \paragraph{HMAC.}
-La funzione \gls{hmac}\glsfirstoccur, è un meccanismo crittografico che consente di verificare l'integrità e l'autenticità di un messaggio. In questo contesto, HMAC viene utilizzato per generare la \gls{otp} combinando la chiave segreta K con i parametri T, SN e src-addr tramite una funzione di hash sicura. Il risultato è un codice che può essere calcolato solo da chi possiede la chiave K e che varia in base ai parametri forniti, garantendo così che ogni \gls{otp} sia unica e valida per un unico utilizzo ed intervallo temporale.
+La funzione \gls{hmac}\glsfirstoccur, è un meccanismo crittografico che consente di verificare l'integrità e l'autenticità di un messaggio. In questo contesto, HMAC viene utilizzato per generare la \gls{otp} combinando la chiave segreta K con i parametri T, SN e \textit{src-addr} tramite una funzione di hash sicura. Il risultato è un codice che può essere calcolato solo da chi possiede la chiave K e che varia in base ai parametri forniti, garantendo così che ogni \gls{otp} sia unica e valida per un unico utilizzo ed intervallo temporale.
 
 \paragraph{Time-step T.}
-Il time-step T è un numero intero che rappresenta il numero di intervalli di tempo (\textit{time-step}) di durata X trascorsi tra $T_0$ e l'attuale tempo unix. Viene calcolato tramite la seguente formula:
+Il \textit{time-step} T è un numero intero che rappresenta il numero di intervalli di tempo (\textit{time-step}) di durata X trascorsi tra $T_0$ e l'attuale tempo unix. Viene calcolato tramite la seguente formula:
 \begin{equation}
     T = \frac{\text{current Unix time} - T_0}{X}
     \label{eq:timestep}
 \end{equation}
-in cui \textit{current Unix time} indica i secondi trascorsi a partire dall'epoch Unix, $T_0$ è un riferimento ad un tempo iniziale arbitrario ed X indica l'intervallo di tempo di validità della \gls{otp}. $T_0$ e X devono avere lo stesso valore in entrambi i dispositivi.\\
+in cui \textit{current Unix time} indica i secondi trascorsi a partire dall'\textit{epoch} Unix, $T_0$ è un riferimento ad un tempo iniziale arbitrario ed X indica l'intervallo di tempo di validità della \gls{otp}. $T_0$ e X devono avere lo stesso valore in entrambi i dispositivi.\\
 Nel caso specifico di questo progetto, X è stato impostato a 3, quindi ogni \gls{otp} è valida per un massimo di tre secondi.
 
 \paragraph{Chiave Segreta K.}
@@ -56,7 +56,7 @@ Come parametri per la funzione, vengono usati dei valori attesi, ad esempio, il 
 
 In realtà, non viene generata una singola \gls{otp}, bensì un insieme di \gls{otp} da considerare valide, in quanto si è voluto introdurre un certo grado di flessibilità, in modo tale da migliorare la resilienza del sistema ad eventuali ritardi nella comunicazione o perdite di pacchetti.\\
 Siano $T_c$ e $SN_c$ rispettivamente l'intervallo di tempo corrente e il prossimo SN atteso, siano x ed y rispettivamente il grado di flessibilità per T ed il grado di flessibilità per SN; vengono considerate valide tutte le \gls{otp} generate con l'equazione \ref{eq:potp} in cui $T \in [T_c - x, T_c]$ e $SN \in [SN_c, SN_c + y]$.\\
-Se non fosse stata introdotta questa flessibilità, si supponga che un pacchetto venga trasmesso con un ritardo superiore al time step, quel pacchetto, sebbene legittimo, verrebbe considerato dal ricevitore come illegittimo. Allo stesso modo, supponendo che vengano persi alcuni pacchetti, tutti i successivi (fino al successivo time step) verrebbero considerati erroneamente illegittimi.
+Se non fosse stata introdotta questa flessibilità, si supponga che un pacchetto venga trasmesso con un ritardo superiore al \textit{time-step}, quel pacchetto, sebbene legittimo, verrebbe considerato dal ricevitore come illegittimo. Allo stesso modo, supponendo che vengano persi alcuni pacchetti, tutti i successivi (fino al successivo \textit{time-step}) verrebbero considerati erroneamente illegittimi.
 
 
 \subsection{Codifica e decodifica dell'OTP}
@@ -65,12 +65,12 @@ Se non fosse stata introdotta questa flessibilità, si supponga che un pacchetto
 Per inglobare la \gls{otp} all'interno dei segnali fisici di ogni pacchetto, si è deciso di usare l'operatore logico \gls{xor}\glsfirstoccur, indicato dal simbolo \(\oplus\).\\
 La particolarità dello \gls{xor} è che consente di "fondere" l'informazione dell'\gls{otp} con i segnali fisici del pacchetto in modo reversibile, grazie alla proprietà di auto-invertibilità dello XOR. Secondo questa proprietà, dato un messaggio \( M \) ed una chiave \( K \), se \( C = M \oplus K \), allora risulta sempre valido che \( M = C \oplus K \).
 
-Questa proprietà è stata sfruttata per nascondere la \gls{otp} all'interno di una porzione nota del \textit{frame header}, cioè i campi Destination e Source (figura \ref{fig:phy_frame_structure}) contenenti gli indirizzi di trasmettitore e ricevitore.\\
-Il trasmettitore, infatti, applica l'operazione di \gls{xor} tra la sequenza di byte dell'\gls{otp} ed i quattro byte di questi due campi, ottenendo così una sequenza modificata che viene inserita nel pacchetto sostituendo tali campi. Al ricevitore, l'operazione inversa di \gls{xor} tra la sequenza ricevuta e la porzione nota permette di recuperare l'OTP originale.
+Questa proprietà è stata sfruttata per nascondere la \gls{otp} all'interno di una porzione nota del \textit{frame header}, cioè i campi \textit{Destination} e \textit{Source} (figura \ref{fig:phy_frame_structure}) contenenti gli indirizzi di trasmettitore e ricevitore.\\
+Il trasmettitore, infatti, applica l'operazione di \gls{xor} tra la sequenza di byte dell'\gls{otp} ed i quattro byte di questi due campi, ottenendo così una sequenza modificata che viene inserita nel pacchetto al posto di tali campi. Al ricevitore, l'operazione inversa di \gls{xor} tra la sequenza ricevuta e la porzione nota permette di recuperare l'OTP originale.
 
 Questa tecnica garantisce che l'OTP sia trasmessa in modo non direttamente leggibile, aumentando la sicurezza contro attacchi di intercettazione. Inoltre, l'operazione di \gls{xor} è computazionalmente leggera e non introduce latenza significativa nella comunicazione.
 
-La posizione e la lunghezza della porzione di \textit{frame} utilizzata per l'operazione di \gls{xor} sono concordate tra trasmettitore e ricevitore, inoltre in una comunicazione \gls{p2p} gli indirizzi Destinatione e Source sono noti ad entrambi. Ciò permette una corretta estrazione e verifica dell'OTP.
+La posizione e la lunghezza della porzione di \textit{frame} utilizzata per l'operazione di \gls{xor} sono concordate tra trasmettitore e ricevitore, inoltre in una comunicazione \gls{p2p} gli indirizzi \textit{Destination} e \textit{Source} sono noti ad entrambi. Ciò permette una corretta estrazione e verifica dell'OTP.
 
 
 % ================================================================= %
@@ -84,27 +84,27 @@ Il codice implementato, come del resto il codice sorgente di OpenVLC, è stato s
 \end{itemize}
 
 \paragraph{Funzionalità principali.}
-Il modulo PhyAuthP2P implementa tre funzioni fondamentali per la generazione e gestione dell'\gls{otp}.
+Il modulo PhyAuthP2P implementa le seguenti tre funzioni fondamentali per la generazione e gestione dell'\gls{otp}.
 
-\texttt{hmac\_sha256()}: questa funzione si occupa di calcolare il codice HMAC utilizzando l'algoritmo SHA-256. Sfrutta le API crittografiche messe a disposizione dal kernel Linux, garantendo così efficienza e sicurezza nell'esecuzione. I parametri di input sono la chiave segreta precondivisa (\gls{psk}), l'intervallo di tempo corrente, il \textit{sequence number} e l'indirizzo MAC del trasmettitore (\textit{src-addr}). Il risultato prodotto è un digest di 32 byte, che rappresenta il valore hash autenticato e costituisce la base per la generazione dell'OTP.
+\texttt{hmac\_sha256()}: questa funzione si occupa di calcolare il codice HMAC utilizzando l'algoritmo SHA-256. Sfrutta le \gls{api} crittografiche messe a disposizione dal \textit{kernel} Linux, garantendo così efficienza e sicurezza nell'esecuzione. I parametri di input sono la chiave segreta precondivisa (\gls{psk}), l'intervallo di tempo corrente, il \textit{sequence number} e l'indirizzo MAC del trasmettitore (\textit{src-addr}). Il risultato prodotto è un digest di 32 byte, che rappresenta il valore hash autenticato e costituisce la base per la generazione dell'OTP.
 
 \texttt{truncate()}: questa funzione applica la tecnica di \textit{"dynamic truncation"} descritta nello standard RFC 4226. In pratica, estrae 4 byte dal digest ottenuto dalla funzione \texttt{hmac\_sha256}, riducendo così la dimensione dell'output a 32 bit, che corrisponde alla lunghezza scelta per l'OTP. Il processo di \textit{truncation} garantisce che l'OTP sia compatta ma sufficientemente sicura contro attacchi di forza bruta.
 
 \texttt{generate\_potp()}: rappresenta la funzione principale del modulo. Riceve in ingresso tutti i parametri necessari (chiave segreta, intervallo di tempo, \textit{sequence number}, indirizzo MAC) e richiama in sequenza le funzioni \texttt{hmac\_sha256} e \texttt{truncate} per produrre l'OTP finale. Questa funzione incapsula l'intero processo di generazione, semplificando l'integrazione con il resto del sistema e permettendo sia al trasmettitore che al ricevitore di ottenere rapidamente il codice OTP da utilizzare o verificare.
 
-Queste funzioni sono state progettate per essere modulari e facilmente integrabili nel flusso di OpenVLC, consentendo una gestione sicura e flessibile dell'autenticazione a livello fisico. L'utilizzo delle API del kernel assicura inoltre che le operazioni crittografiche siano eseguite in modo ottimale e conforme agli standard di sicurezza.
+Queste funzioni sono state progettate per essere modulari e facilmente integrabili nel flusso di OpenVLC, consentendo una gestione sicura e flessibile dell'autenticazione a livello fisico. L'utilizzo delle \gls{api} del \textit{kernel} assicura inoltre che le operazioni crittografiche siano eseguite in modo ottimale e conforme agli standard di sicurezza.
 
 \paragraph{Interazione con OpenVLC.}
 Quest'ultima funzione di generazione della \gls{otp} viene utilizzata, nel codice OpenVLC, sia dal trasmettitore che dal ricevitore.
 In particolare, il trasmettitore la chiama all'interno di \texttt{construct\_frame\_header()} per generare la \gls{otp} e successivamente inglobarla nei segnali fisici. Il ricevitore invece, la chiama all'interno di \texttt{phy\_decoding()}, dopo aver estratto la \gls{otp} contenuta nel pacchetto, utilizzando diversi valori di T ed SN al fine di garantire la flessibilità discussa nella sezione precedente.
 
 \paragraph{Dipendenze}
-Il modulo PhyAuthP2P essendo stato sviluppato come parte del kernel Linux richiede le seguenti dipendenze per la corretta compilazione e funzionamento e per implementare le funzionalità crittografiche:
+Il modulo PhyAuthP2P essendo stato sviluppato come parte del \textit{kernel} Linux richiede le seguenti dipendenze per la corretta compilazione e funzionamento e per implementare le funzionalità crittografiche:
 \begin{itemize}
-    \item \texttt{<crypto/hash.h>}: fornisce le API per la gestione delle funzioni di hash e HMAC;
-    \item \texttt{<linux/crypto.h>}: include le primitive crittografiche del kernel;
+    \item \texttt{<crypto/hash.h>}: fornisce le \gls{api} per la gestione delle funzioni di hash e HMAC;
+    \item \texttt{<linux/crypto.h>}: include le primitive crittografiche del \textit{kernel};
     \item \texttt{<linux/string.h>}: funzioni di manipolazione delle stringhe;
-    \item \texttt{<linux/slab.h>}: gestione della memoria dinamica nel kernel;
+    \item \texttt{<linux/slab.h>}: gestione della memoria dinamica nel \textit{kernel};
     \item \texttt{<linux/err.h>}: gestione degli errori;
     \item \texttt{<linux/types.h>}: definizioni dei tipi di dato.\\\\\\
 \end{itemize}

@@ -1,28 +1,28 @@
 \chapter{Analisi}
 \label{cap:analisi}
 
-\intro{In questo capitolo si approfondisce in dettaglio il funzionamento del \textit{framework} OpenVLC, le minacce alla sicurezza a cui è soggetto e le possibili contromisure. Inoltre espone la soluzione proposta per attenuare alcune di queste problematiche.}\\
+\intro{In questo capitolo si approfondisce in dettaglio il funzionamento del \textit{framework} OpenVLC, le minacce alla sicurezza a cui è soggetto e le possibili contromisure. Inoltre si espone la soluzione proposta per attenuare alcune di queste problematiche.}\\
 
 % ================================================================= %
 \section{Analisi della piattaforma OpenVLC}
 
 \paragraph{Introduzione.}
-OpenVLC è una piattaforma open source per la comunicazione ottica wireless, sviluppata dal Pervasive Wireless Systems group del Dr. Giustiniano all'IMDEA Networks Institute (Madrid, Spagna).
-OpenVLC è progettata per consentire agli sviluppatori di sperimentare con la \gls{vlc}, per essere flessibile e low-cost, permettendo, nell'ultima versione, la trasmissione di dati ad una velocità di 400 kb/s e ad una distanza di quasi 20 metri.
+OpenVLC è una piattaforma \textit{open source} per la comunicazione ottica wireless, sviluppata dal Pervasive Wireless Systems group del Dr. Giustiniano all'IMDEA Networks Institute (Madrid, Spagna).
+OpenVLC è progettata per consentire agli sviluppatori di sperimentare con la \gls{vlc}, per essere flessibile e \textit{low-cost}, permettendo, nella versione 1.4 attualmente in sviluppo, la trasmissione di dati ad una velocità di 400 kb/s e ad una distanza di quasi 20 metri.
 
 \paragraph{Motivazioni.}
-Si è scelto di utilizzare OpenVLC proprio a causa della sua accessibilità e popolarità. Infatti, nonostante sia un progetto di piccole dimensioni, possiede delle caratteristiche, come ad esempio l'essere open source e l'avere una community di discrete dimensioni, che lo rendono la soluzione ideale, e probabilmente l'unica, per la ricerca in ambito \gls{vlc}.\\
-È infatti importante evidenziare, che durante lo svolgimento del progetto, a causa di problematiche riscontrate nella configurazione delle due schede BeagleBone, si è valutata l'idea di trovare un'alternativa ad OpenVLC. Si è considerato, ad esempio, l'utilizzo di un \textit{software} diverso o addirittura di un qualche programma che permettesse di simulare una comunicazione tramite luce visibile. Tuttavia a seguito di varie ricerche, si è concluso che OpenVLC fosse l'unica soluzione open source attualmente in circolazione.
+Si è scelto di utilizzare OpenVLC proprio a causa della sua accessibilità e popolarità. Infatti, nonostante sia un progetto di piccole dimensioni, possiede delle caratteristiche, come ad esempio l'essere \textit{open source} e l'avere una \textit{community} di discrete dimensioni, che lo rendono la soluzione ideale, e probabilmente l'unica, per la ricerca in ambito \gls{vlc}.\\
+È infatti importante evidenziare, che durante lo svolgimento del progetto, a causa di problematiche riscontrate nella configurazione delle due schede BeagleBone, è stata valutata l'idea di trovare un'alternativa ad OpenVLC. Si è considerato, ad esempio, l'utilizzo di un \textit{software} diverso o addirittura di un qualche programma che permettesse di simulare una comunicazione tramite luce visibile. Tuttavia a seguito di varie ricerche, si è concluso che OpenVLC fosse l'unica soluzione \textit{open source} attualmente in circolazione.
 
 \paragraph{Hardware.}
-OpenVLC si appoggia su schede BeagleBone Black, una piattaforma \textit{hardware} open source low-cost per sviluppatori, dotata di un processore ARM Cortex-A8 e di una serie di interfacce di comunicazione, tra cui USB, Ethernet e GPIO. BeagleBone è particolarmente adatto per applicazioni embedded e IoT, grazie alla sua flessibilità e alle sue capacità di elaborazione.\\
-La seconda componente \textit{hardware} fondamentale per il funzionamento di OpenVLC è l'\textit{OpenVLC1.3 cape}, una scheda di espansione progettata per la BeagleBone Black. Questo cape integra i circuiti necessari per la trasmissione e la ricezione di segnali luminosi, includendo un LED per l'emissione e un fotodiodo per la ricezione. Inoltre, il cape dispone di circuiti di amplificazione e filtraggio per garantire una comunicazione affidabile e ridurre il rumore di fondo. L'interfaccia tra la BeagleBone e il cape avviene tramite i pin GPIO, permettendo una gestione diretta dei segnali ottici tramite \textit{software}.
+OpenVLC si appoggia su schede BeagleBone Black, una piattaforma \textit{hardware} \textit{open source} \textit{low-cost} per sviluppatori, dotata di un processore ARM Cortex-A8 e di una serie di interfacce di comunicazione, tra cui USB, Ethernet e GPIO. BeagleBone è particolarmente adatto per applicazioni \textit{embedded} e \gls{iot}, grazie alla sua flessibilità e alle sue capacità di elaborazione.\\
+La seconda componente \textit{hardware} fondamentale per il funzionamento di OpenVLC è l'\textit{OpenVLC1.3 cape}, una scheda di espansione progettata per la BeagleBone Black. Questo \textit{cape} integra i circuiti necessari per la trasmissione e la ricezione di segnali luminosi, includendo un LED per l'emissione e un fotodiodo per la ricezione. Inoltre, il \textit{cape} dispone di circuiti di amplificazione e filtraggio per garantire una comunicazione affidabile e ridurre il rumore di fondo. L'interfaccia tra la BeagleBone e il \textit{cape} avviene tramite i pin GPIO, permettendo una gestione diretta dei segnali ottici tramite \textit{software}.
 
 \paragraph{Driver e Sistema Operativo.}
 % come funziona l'ambiente di OpenVLC (descrizione ad alto livello del sistema)
 Il codice sorgente di OpenVLC è formato da due componenti: il \textit{software}, scritto in linguaggio C, necessario a gestire i livelli \gls{phy} e \gls{mac} e ad interfacciarli con i livelli superiori del modello \gls{osi}; il firmware necessario a controllare i \gls{pru} delle schede BeagleBone.\\
 Nella versione 1.3 è stata introdotta la possibilità di utilizzare anche un LED infrarossi per trasmettere dati, il quale può affiancare il classico LED oppure essere usato singolarmente.
-Di conseguenza, nel caso del trasmettitore, il \textit{framework} può essere selezionato tra varie possibilità a seconda del livello di dimming desiderato. Ovvero in funzione di quanto si desidera usare il LED VL piuttosto che il LED IR.
+Di conseguenza, nel caso del trasmettitore, il \textit{framework} può essere selezionato tra varie possibilità a seconda del livello di \textit{dimming} desiderato. Ovvero in funzione di quanto si desidera usare il LED VL piuttosto che il LED IR.
 Di seguito le possibili opzioni fornite in OpenVLC:
 \begin{itemize}
     \item 0\% Dimming (solo luce visibile)
@@ -33,18 +33,18 @@ Di seguito le possibili opzioni fornite in OpenVLC:
 \end{itemize}
 Nell'ambito del progetto qui presentato, trattandosi di \gls{vlc}, si è deciso di usare la prima opzione, ovvero solo luce visibile.
 
-In figura \ref{fig:beaglebone_cape} si possono osservare una scheda BeagleBone Black (a sinistra) ed un \textit{OpenVLC1.3 cape}. Sul cape \textit{IR LED} indica il LED infrarossi, \textit{VL LED} indica il LED visible light e \textit{PD} indica il fotodiodo ricevitore.
+In figura \ref{fig:beaglebone_cape} si possono osservare una scheda BeagleBone Black (a sinistra) ed un \textit{OpenVLC1.3 cape}. Sul \textit{cape}, \textit{IR LED} indica il LED infrarossi, \textit{VL LED} indica il LED visible light e \textit{PD} indica il fotodiodo ricevitore.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{openvlc/Cape_for_TX_in_VL_IR_bands}
-    \caption{Test iperf riportato nella documentazione di OpenVLC}
+    \caption{a sinistra una scheda BeagleBone Black, a destra un \textit{OpenVLC1.3 cape} (fonte: documentazione OpenVLC)}
     \label{fig:beaglebone_cape}
 \end{figure}
 
-Durante la configurazione, sulle schede BeagleBone, viene installato il sistema operativo \textit{Debian 8 "jessie"}. Il driver di OpenVLC è di fatto un modulo del kernel \textit{Linux} che agisce da ponte tra lo stack di rete del sistema operativo e l'\textit{hardware} BeagleBone.
+Durante la configurazione, sulle schede BeagleBone, viene installato il sistema operativo \textit{Debian 8 "jessie"}. Il driver di OpenVLC è di fatto un modulo del \textit{kernel} \textit{Linux} che agisce da ponte tra lo \textit{stack} di rete del sistema operativo e l'\textit{hardware} BeagleBone.
 
 \paragraph{Reti e Sicurezza.}
-Una volta configurate correttamente due schede, la prima come trasmettitore e la seconda come ricevitore, è quindi possibile usarle come una \textit{common network interface}. Ovvero il sistema operativo, in questo caso Debian 8, può usare OpenVLC allo stesso modo in cui userebbe una normale interfaccia di rete, come ad esempio inviare/ricevere pacchetti IP e comunicare con altri dispositivi su una rete locale.\\
+Una volta configurate correttamente due schede, la prima come trasmettitore e la seconda come ricevitore, è quindi possibile usarle come una \textit{common network interface}. Ovvero il sistema operativo, in questo caso \textit{Debian 8}, può usare OpenVLC allo stesso modo in cui userebbe una normale interfaccia di rete, come ad esempio inviare/ricevere pacchetti IP e comunicare con altri dispositivi su una rete locale.\\
 Come già anticipato, ognuna delle due schede ha uno ed un solo ruolo, non è infatti possibile attualmente trasmettere e ricevere dalla stessa scheda contemporaneamente. Questo tipo di canale di comunicazione viene denominato \textit{simplex} (unidirezionale), in contrapposizione ad esempio ad un canale \textit{duplex} in cui un \textit{device} può cambiare ruolo dinamicamente o ad un canale \textit{full-duplex} in cui un \textit{device} può trasmettere e ricevere simultaneamente.\\
 In OpenVLC, per cambiare il ruolo di un \textit{device}, bisogna di fatto ricompilare il driver.
 
@@ -63,10 +63,10 @@ In figura \ref{fig:design_openvlc} si riporta uno schema riassuntivo dell'archit
 \paragraph{PHY Frame.}
 
 Come mostrato in figura \ref{fig:phy_frame_structure}, il \gls{phy} \textit{frame}, cioè la struttura del pacchetto dati a livello fisico, si suddivide in diversi campi.\\
-Ogni pacchetto inizia con un preambolo, lungo quattro byte, necessario alla sincronizzazione dei \textit{device}, a cui segue lo \textit{Start of Frame Delimiter} che indica l'inizio del \textit{frame}.\\
-Successivamente vengono inviati quattro campi da due byte ciascuno: la lunghezza in byte del \textit{frame} (\textit{Frame Length}), l'indirizzo del \textit{device} a cui il pacchetto è destinato (\textit{Destination}), l'indirizzo del \textit{device} da cui proviene (\textit{Source}) e il protocollo di comunicazione (\textit{Protocol}).
-A questo punto sono presenti i dati veri e propri, contenuti nel \textit{Payload}, il quale ha una lunghezza variabile da 0 a 255 byte.
-Infine, nel campo \textit{Error Correction Code}, si hanno 16 byte necessari alla correzione degli errori generati da Reed-Solomon.
+Ogni pacchetto inizia con un preambolo, lungo quattro byte, necessario alla sincronizzazione dei \textit{device}, a cui segue lo \textit{Start of Frame Delimiter (SFD)} che indica l'inizio del \textit{frame}.\\
+Successivamente vengono inviati quattro campi da due byte ciascuno: la lunghezza in byte del \textit{frame} (\textit{Frame Length}), l'indirizzo del \textit{device} a cui il pacchetto è destinato (\textit{Destination}), l'indirizzo del \textit{device} da cui proviene (\textit{Source}) e il protocollo di comunicazione (\textit{Protocol}).\\
+A questo punto sono presenti i dati veri e propri, contenuti nel \textit{Payload}, il quale ha una lunghezza variabile da 0 a 255 byte.\\
+Infine, nel campo \textit{Error Correction Code}, si hanno 16 byte generati da Reed-Solomon necessari alla correzione degli errori.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.9\columnwidth]{openvlc/phy_frame_structure}
@@ -75,11 +75,11 @@ Infine, nel campo \textit{Error Correction Code}, si hanno 16 byte necessari all
 \end{figure}
 
 \paragraph{Modulazione e Codifica.}
-\noindent Come definito dallo standard \gls{ieee} 802.15.7, OpenVLC utilizza la modulazione \gls{ook}\glsfirstoccur nella trasmissione dei dati. In \gls{vlc}, la modulazione dei dati riguarda il modo in cui le informazioni digitali vengono convertite in un segnale analogico tramite la variazione dell'intensità luminosa. In pratica i dispositivi trasmettono bit mediante uno sfarfallio del LED impercettibile all'occhio umano. Si ricorda infatti che lo scopo primario del LED è l'illuminazione, di conseguenza è necessario che rimanga costantemente acceso e che questo sfarfallio sia impercettibile in modo tale da non essere fastidioso per gli occhi.\\
-In \gls{vlc}, la modulazione \gls{ook}, è la forma più semplice di modulazione ASK (Amplitude Shift Keying), la quale rappresenta i dati digitali come presenza o assenza di un segnale luminoso che vengono interpretate rispettivamente come bit-1 e bit-0. Questa modulazione è facile da implementare ed ha un basso costo computazionale, tuttavia richiede una sincronizzazione molto precisa tra trasmettitore e ricevitore.
+\noindent Come definito dallo standard \gls{ieee} 802.15.7, OpenVLC utilizza la modulazione \gls{ook}\glsfirstoccur nella trasmissione dei dati. In \gls{vlc}, la modulazione dei dati riguarda il modo in cui le informazioni digitali vengono convertite in un segnale analogico tramite la variazione dell'intensità luminosa. In pratica i dispositivi trasmettono bit mediante uno "sfarfallio" del LED impercettibile all'occhio umano. Si ricorda infatti che lo scopo primario del LED è l'illuminazione, di conseguenza è necessario che rimanga costantemente acceso e che questo "sfarfallio" sia impercettibile in modo tale da non essere fastidioso per gli occhi.\\
+In \gls{vlc}, la modulazione \gls{ook}, è la forma più semplice di modulazione Amplitude Shift Keying (ASK), la quale rappresenta i dati digitali come presenza o assenza di un segnale luminoso che vengono interpretate rispettivamente come bit-1 e bit-0. Questa modulazione è facile da implementare ed ha un basso costo computazionale, tuttavia richiede una sincronizzazione molto precisa tra trasmettitore e ricevitore.
 
 Al fianco della modulazione \gls{ook}, viene usata la codifica \textit{Manchester}, una forma di comunicazione dati nella quale ogni punto viene segnalato da una transizione. Ad esempio, la transizione del segnale, in questo caso luminoso, da basso ad alto viene interpretato dalla scheda ricevente come bit-1; viceversa da alto a basso viene interpretato come un bit-0.\\
-Nella \gls{vlc} ha il vantaggio di mantenere il bilanciamento DC, riducendo il rischio di \textit{flickering} (sfarfallio) visibile e migliora la sincronizzazione tra trasmettitore e ricevitore.
+Nella \gls{vlc} ha il vantaggio di mantenere il bilanciamento DC, riducendo il rischio di \textit{flickering} ("sfarfallio") visibile e migliora la sincronizzazione tra trasmettitore e ricevitore.
 In OpenVLC l'unico campo del \gls{phy} \textit{frame} in cui non viene applicata la codifica Manchester è il preambolo, che di conseguenza viene trasmesso in semplice \gls{ook}.
 
 \paragraph{Correzione degli Errori.}
@@ -136,11 +136,12 @@ La \gls{psk} è una chiave segreta condivisa tra i due dispositivi prima dell'in
 
 \paragraph{Vulnerabilità Contrastate dall'Autenticazione.}
 
-L'autenticazione sviluppata in questo progetto è volta a contrastare un sottoinsieme delle vulnerabilità sopra elencate, in particolare injection di pacchetti e replay dei messaggi.
+L'autenticazione sviluppata in questo progetto è volta a contrastare un sottoinsieme delle vulnerabilità sopra elencate, in particolare \textit{injection} di pacchetti e \textit{replay} dei messaggi.
 
-Nell'injection di pacchetti, l'attaccante si finge un nodo legittimo della rete e mette in circolazione pacchetti aventi un contenuto malevolo o semplicemente volti a congestionarla, deteriorando così la qualità della comunicazione e le risorse degli altri dispositivi. Questo tipo di attacco può essere prevenuto dall'autenticazione a livello fisico, in quanto ogni pacchetto che non possiede una \gls{otp} valida, come ad esempio quelli forgiati dall'attaccante (che si suppone non abbia la \gls{psk} necessaria a generare una \gls{otp} valida), viene prontamente scartato, evitando ulteriori elaborazioni che possano depletare le risorse del \textit{device} o addirittura eseguire codice malevolo. Anche nel caso in cui l'attaccante abbia il pieno controllo di un nodo legittimo (e di conseguenza anche della \gls{psk}), e quindi sia in grado di generare \gls{otp} valide che superino i controlli a livello fisico, il coordinatore della rete, dato che la \gls{otp} è \textit{device}-specifica, può risalire al nodo corrotto leggendo la \gls{otp} dei pacchetti malevoli e contrassegnarlo come illegittimo.
+Nell'\textit{injection} di pacchetti, l'attaccante si finge un nodo legittimo della rete e mette in circolazione pacchetti aventi un contenuto malevolo o semplicemente volti a congestionarla, deteriorando così la qualità della comunicazione e consumando le risorse degli altri dispositivi. Questo tipo di attacco può essere prevenuto dall'autenticazione a livello fisico, in quanto ogni pacchetto che non possiede una \gls{otp} valida, come ad esempio quelli forgiati dall'attaccante (che si suppone non abbia la \gls{psk} necessaria a generare una \gls{otp} valida), viene prontamente scartato, evitando ulteriori elaborazioni che possano depletare le risorse del \textit{device} o addirittura eseguire codice malevolo.\\
+Anche nel caso in cui l'attaccante abbia il pieno controllo di un nodo legittimo (e di conseguenza anche della \gls{psk}), e quindi sia in grado di generare \gls{otp} valide che superino i controlli a livello fisico, il coordinatore della rete, dato che la \gls{otp} è \textit{device}-specifica, può risalire al nodo corrotto leggendo la \gls{otp} dei pacchetti malevoli e contrassegnarlo come illegittimo.
 
-Nel replay dei messaggi, l'attaccante cattura messaggi legittimi inviati da un nodo della rete e, senza modificarli, li ritrasmette in modo tale da congestionare la rete e depletare le risorse del sistema. Anche questo tipo di attacco può essere prevenuto dall'autenticazione sviluppata, poiché, per come è stato progettato l'algoritmo di generazione della \gls{otp}, ogni \gls{otp} (e di riflesso ogni pacchetto) è valida per un unico utilizzo. Quindi la seconda volta che un pacchetto replicato viene trasmesso, questo verrà scartato dal \textit{device} ricevitore in quanto la \gls{otp} in esso contenuta risulterà scaduta.
+Nel \textit{replay} dei messaggi, l'attaccante cattura messaggi legittimi inviati da un nodo della rete e, senza modificarli, li ritrasmette in modo tale da congestionare la rete e depletare le risorse del sistema. Anche questo tipo di attacco può essere prevenuto dall'autenticazione sviluppata, poiché, per come è stato progettato l'algoritmo di generazione della \gls{otp}, ogni \gls{otp} (e di riflesso ogni pacchetto) è valida per un unico utilizzo. Quindi la seconda volta che un pacchetto replicato viene trasmesso, questo verrà scartato dal \textit{device} ricevitore in quanto la \gls{otp} in esso contenuta risulterà scaduta.
 
 
 \paragraph{Possibili Contromisure alle altre Vulnerabilità.}
@@ -148,4 +149,4 @@ Una possibile contromisura all'attacco \gls{mitm} si può implementare semplicem
 
 L'intercettazione del segnale ottico si può mitigare attraverso la crittografia dei messaggi, ad esempio cifrando il messaggio con la chiave pubblica del \textit{device} destinatario, in modo tale che esso sia l'unico in grado di decifrarlo e leggerne il contenuto. Oppure usando una chiave privata condivisa tra i due \textit{device} in modo tale da garantire al contempo anche l'autenticazione.
 
-L'ultima vulnerabilità, cioè la distruzione o alterazione dei pacchetti tramite segnali ottici che interferiscono con la comunicazione, è in realtà già mitigata attraverso i codici di correzione degli errori presenti in OpenVLC (Reed-Solomon), tuttavia si potrebbe pensare di implementare delle varianti capaci di correggere un maggior numero di errori, anche se al costo di rallentare la comunicazione.
+L'ultima vulnerabilità, cioè la distruzione o alterazione dei pacchetti tramite segnali ottici che interferiscono con la comunicazione, è in realtà già mitigata attraverso i codici di correzione degli errori presenti in OpenVLC (Reed-Solomon). Tuttavia si potrebbe pensare di implementare delle varianti capaci di correggere un maggior numero di errori, anche se al costo di rallentare la comunicazione.

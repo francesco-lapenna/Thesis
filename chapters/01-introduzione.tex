@@ -3,7 +3,7 @@
 
 % ================================================================= %
 \section{Contesto e motivazioni}
-La \gls{vlc}\glsfirstoccur è una tecnologia wireless che sfrutta la luce visibile, tipicamente LED, per trasmettere dati. Questo è reso possibile grazie alla modulazione della luce, ovvero a uno sfarfallio impercettibile all'occhio umano.
+La \gls{vlc}\glsfirstoccur è una tecnologia wireless che sfrutta la luce visibile, tipicamente LED, per trasmettere dati. Questo è reso possibile grazie alla modulazione della luce, ovvero a uno "sfarfallio" impercettibile all'occhio umano.
 
 I principali vantaggi che rendono questa tecnologia innovativa sono l'efficienza energetica, poiché \gls{vlc} sfrutta fonti di luce già designate all'illuminazione al fine di trasmettere dati, e la sicurezza, in quanto la luce visibile, a differenza delle onde radio, non può penetrare superfici opache. Il tutto garantendo al contempo una comunicazione ad alta velocità.
 
@@ -12,12 +12,12 @@ Tra i principali ambiti di applicazione vi sono: \gls{its}\glsfirstoccur, permet
 Sebbene la \gls{vlc}, come menzionato in precedenza, presenti di per sé caratteristiche che la rendano sicura, è comunque vulnerabile ad attacchi di tipo \textit{spoofing} e \textit{packet-injection}, in cui l'attaccante impersona un \textit{device} legittimo, \textit{replay attacks}, in cui l'attaccante intercetta e ritrasmette pacchetti legittimi, e Denial Of Service (DoS), in cui l'attaccante inonda la rete con pacchetti per esaurire le risorse del sistema.
 
 La \gls{vlc} è regolata dallo standard IEEE 802.15.7 che attualmente non definisce protocolli di sicurezza a livello fisico, in quanto assume che il canale di comunicazione sia sicuro e non accessibile a terzi e perciò delega la sicurezza ai livelli superiori. Tuttavia questa assunzione non è valida in tutti gli ambiti di applicazione, come ad esempio in ambienti aperti o in scenari di \gls{its}, dove i dispositivi possono essere facilmente accessibili da parte di attaccanti esterni.
-In questi scenari, la sicurezza a livello fisico è decisamente vantaggiosa, in quanto permette al sistema di rilevare e scartare pacchetti sospetti prima che vengano elaborati dai livelli superiori, riducendo il consumo di risorse computazionali ed energetiche.
+In questi scenari, la sicurezza a livello fisico è decisamente vantaggiosa, in quanto permette al sistema di rilevare e scartare pacchetti sospetti prima che vengano elaborati dai livelli superiori, riducendo così il consumo di risorse computazionali ed energetiche.
 
 % ================================================================= %
 \section{Obiettivi della tesi}
 
-Questo progetto di tesi si propone di sviluppare e integrare nel \textit{framework} \cite{site:openvlc}, un modulo di autenticazione a livello fisico che permetta di prevenire alcuni tra i possibili rischi citati in precedenza, come \textit{spoofing}, \textit{replay} e \textit{DoS attacks}, scartando pacchetti illeciti il prima possibile nella comunicazione e mantenendo al contempo le prestazioni del sistema.
+Questo progetto di tesi si propone di sviluppare e integrare nel \textit{framework} \cite{site:openvlc}, un modulo di autenticazione a livello fisico che permetta di prevenire alcuni tra i possibili rischi citati in precedenza, come \textit{replay attacks}, \textit{spoofing} e \textit{packet injection}, scartando pacchetti illeciti il prima possibile nella comunicazione e mantenendo al contempo le prestazioni del sistema.
 
 % ================================================================= %
 \section{Organizzazione del testo}
@@ -31,7 +31,7 @@ Questo progetto di tesi si propone di sviluppare e integrare nel \textit{framewo
     
     \item[{\hyperref[cap:test]{Il quinto capitolo}}] descrive i test eseguiti e analizza le performance del sistema sviluppato.
         
-    \item[{\hyperref[cap:conclusioni]{Nel sesto capitolo}}] si riassume i risultati ottenuti e i possibili sviluppi futuri.
+    \item[{\hyperref[cap:conclusioni]{Nel sesto capitolo}}] si riassumono i risultati ottenuti e i possibili sviluppi futuri.
 \end{description}
 
 \noindent \\Riguardo la stesura del testo, relativamente al documento sono state adottate le seguenti convenzioni tipografiche:
