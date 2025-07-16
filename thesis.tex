@@ -1,17 +1,17 @@
-\documentclass[ % commenta questo blocco per versione web
-    12pt,       % fontsize
-    twoside,    % asymmetric pagination, for printed view
-    openright,  % open chapeters on right page
-    a4paper,
-    english,
-    italian,
-]{book}
-\newcommand{\isprintable}{1}
+% \documentclass[ % commenta questo blocco per versione web
+%     12pt,       % fontsize
+%     twoside,    % asymmetric pagination, for printed view
+%     openright,  % open chapeters on right page
+%     a4paper,
+%     english,
+%     italian,
+% ]{book}
+% \newcommand{\isprintable}{1}
 
 \ifdefined \isprintable
 \else
     \documentclass[
-        10pt,       % fontsize
+        12pt,       % fontsize
         oneside,    % symmetric pagination, for digital view
         a4paper,
         english,
@@ -22,7 +22,7 @@
 
 \usepackage[
     nomarginpar,  % togli note a margine che tanto non uso
-    inner=3.5cm,    % tutti i bordi a 3cm, interno +0.5cm per rilegatura
+    inner=3cm,    % tutti i bordi a 3cm, interno +0.5cm per rilegatura
     outer=3cm,
     top=3cm,
     bottom=3cm
